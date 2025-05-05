@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GettingReal
+namespace GettingRealWPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

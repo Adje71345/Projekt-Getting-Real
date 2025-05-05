@@ -1,7 +1,7 @@
-﻿<Application x:Class="GettingReal.App"
+﻿<Application x:Class="GettingRealWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GettingReal"
+             xmlns:local="clr-namespace:GettingRealWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
