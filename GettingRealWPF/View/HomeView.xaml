@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Pro Stål"
-             FontSize="40"
+             FontSize="50"
              FontWeight="Bold"
              HorizontalAlignment="Left"
              VerticalAlignment="Center"
@@ -33,7 +33,33 @@
 
             <RadioButton Content="Lagerliste"
                          Height="50"
-                         FontSize="26"/>
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Registrer nyt materiale"
+                         Height="50"
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Tilføj materiale"
+                         Height="50"
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Fjern materiale"
+                         Height="50"
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Flyt materiale"
+                         Height="50"
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Rediger materiale"
+                         Height="50"
+                         FontSize="22"
+                         Style="{StaticResource MenuButtonTheme}"/>
 
         </StackPanel>
 
