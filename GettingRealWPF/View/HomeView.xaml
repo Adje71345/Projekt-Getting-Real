@@ -22,10 +22,25 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <TextBlock Text="Pro Stål"
+             FontSize="40"
+             FontWeight="Bold"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Center"
+             Margin=" 20,0,0,0"/>
+
+        <StackPanel Grid.Row="1">
+
+            <RadioButton Content="Lagerliste"
+                         Height="50"
+                         FontSize="26"/>
+
+        </StackPanel>
+
 
     </Grid>
 
-   
+  
 
 
 
