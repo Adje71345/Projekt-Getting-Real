@@ -1,7 +1,7 @@
-﻿<Application x:Class="GettingRealWPF.App"
+﻿<Application x:Class="Login_Stuff.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GettingRealWPF"
+             xmlns:local="clr-namespace:Login_Stuff"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

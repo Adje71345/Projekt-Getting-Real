@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace GettingRealWPF
+namespace Login_Stuff
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,24 +1,28 @@
-﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GettingRealWPF.ViewModels;
 
 namespace GettingRealWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainWindowViewModel();
+            this.DataContext = viewModel;
+        }
+
+        private void OnLoginClick(object sender, RoutedEventArgs e)
+        {
+            viewModel.Password = PasswordBox.Password;
+            viewModel.LoginCommand.Execute(null);
+        }
+
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }
