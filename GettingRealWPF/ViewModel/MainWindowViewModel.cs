@@ -45,7 +45,7 @@ namespace GettingRealWPF.ViewModels
             var users = userRepo.GetAllUsers();
             var user = users.FirstOrDefault(u => u.Name == Username && u.Password == Password);
 
-            LoginMessage = user != null ? "Login succesfuldt!" : "Forkert brugernavn eller adgangskode.";
+            LoginMessage = user != null ? "Login succesfuldt" : "Forkert brugernavn eller adgangskode";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
