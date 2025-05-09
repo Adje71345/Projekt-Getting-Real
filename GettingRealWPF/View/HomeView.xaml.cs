@@ -23,5 +23,7 @@ namespace GettingRealWPF.View
         {
             InitializeComponent();
         }
+
+        
     }
 }
