@@ -9,7 +9,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border BorderThickness="1"
-                            BorderBrush="#CCCCCC"
+                            BorderBrush="White"
                             Background="White" 
                             Height="30">
                         <Grid>
@@ -32,7 +32,7 @@
                                        HorizontalAlignment="Left"
                                        Margin="7,0,0,0"
                                        FontSize="12"
-                                       Foreground="#999999"
+                                       Foreground="White"
                                        Visibility="Collapsed">
                                <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">

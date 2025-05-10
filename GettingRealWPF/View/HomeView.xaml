@@ -29,7 +29,7 @@
         <Image Source="/Images/Pro-stål logo.png"
                 Width="220"
                 HorizontalAlignment="Center"
-                Margin="0,-29,0,1"
+                Margin="0,-39,0,11"
                 Grid.RowSpan="2"/>
 
         <!-- Menu -->
@@ -37,37 +37,37 @@
 
             <RadioButton Content="Lagerliste"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}" Checked="RadioButton_Checked"/>
 
             <RadioButton Content="Registrer materiale"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}"/>
 
             <RadioButton Content="Tilføj materiale"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}"/>
 
             <RadioButton Content="Fjern materiale"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}"/>
 
             <RadioButton Content="Flyt materiale"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}"/>
 
             <RadioButton Content="Rediger materiale"
                          Height="50"
-                         FontSize="20"
+                         FontSize="18"
                          FontWeight="DemiBold"
                          Style="{StaticResource MenuButtonTheme}"/>
 
@@ -99,10 +99,10 @@
                 <Grid>
                     <TextBox x:Name="SearchBox" 
                              BorderThickness="0"
-                             Background="Transparent"
+                             Background="White"
                              VerticalContentAlignment="Center"
                              Padding="5,0,25,0"
-                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" TextChanged="SearchBox_TextChanged" BorderBrush="#FF020202"/>
 
                     <TextBlock IsHitTestVisible="False"
                                 Text="Søg efter materiale"
@@ -125,7 +125,7 @@
 
                     <!-- Søge-ikon -->
                     <TextBlock Text="🔍" 
-                   Foreground="#767676"
+                   Foreground="Black"
                    IsHitTestVisible="False"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
@@ -138,7 +138,7 @@
             <!-- Filtrering efter kategori-->
             <TextBlock Text="Kategori: "
                        Grid.Column="1"
-                       FontSize="18"
+                       FontSize="14"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontWeight="DemiBold">
@@ -152,7 +152,7 @@
             <!-- Filtrering efter placering-->
             <TextBlock Text="Placering: "
                        Grid.Column="3"
-                       FontSize="18"
+                       FontSize="14"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontWeight="DemiBold">
