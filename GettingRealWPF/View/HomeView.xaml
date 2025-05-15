@@ -173,14 +173,6 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <StackPanel Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Top"
-                    Margin="0,5,10,0">
-            <Button Content="—" Width="20" Height="20" Margin="5,0" Click="MinimizeButton_Click" />
-            <Button Content="□" Width="20" Height="20" Margin="5,0" Click="MinimizeButton_Click" />
-            <Button Content="✕" Width="20" Height="20" Margin="5,0" Click="MinimizeButton_Click" />
-        </StackPanel>
+        
     </Grid>
 </Window>
