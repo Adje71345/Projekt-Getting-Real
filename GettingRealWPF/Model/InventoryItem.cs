@@ -8,9 +8,10 @@ namespace GettingRealWPF.Model
 {
     public class InventoryItem
     {
-        public Material Material { get; private set; }
+        public Material Material { get;  set; }
         public int Amount { get; set; }
-        public Storage Storage { get; private set; }
+        public Storage Storage { get;  set; }
+        public string Id { get;  set; }
 
         public InventoryItem(Material material, int amount, Storage storage)
         {
