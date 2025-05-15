@@ -15,5 +15,7 @@ namespace GettingRealWPF.Model
         public void DeleteInventoryItem(string materialDescription, string location);
         public void IncreaseAmount(string materialDescription, string location, int amount);
         public void DecreaseAmount(string materialDescription, string location, int amount);
+        void MoveInventoryItem(string materialDescription, string currentLocation, string newLocation);
+
     }
 }
