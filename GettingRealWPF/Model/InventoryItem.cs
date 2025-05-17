@@ -8,10 +8,9 @@ namespace GettingRealWPF.Model
 {
     public class InventoryItem
     {
-        public Material Material { get;  set; }
+        public Material Material { get; set; }
         public int Amount { get; set; }
-        public Storage Storage { get;  set; }
-        public string Id { get;  set; }
+        public Storage Storage { get; set; }
 
         public InventoryItem(Material material, int amount, Storage storage)
         {
@@ -26,13 +25,25 @@ namespace GettingRealWPF.Model
 
         public static InventoryItem FromString(string input)
         {
-            string[] parts = input.Split(',');
-            if (parts.Length != 3)
-                throw new ArgumentException("Invalid input format for InventoryItem.");
-            Material material = Material.FromString(parts[0]);
-            int amount = int.Parse(parts[1]);
-            Storage storage = Storage.FromString(parts[2]);
+            // Split i alle kommaer
+            var parts = input.Split(',');
+
+            // materialString er alt undtagen de sidste to felter
+            var materialString = string.Join(",", parts.Take(parts.Length - 2));
+
+            // amount er næstsidste felt
+            if (!int.TryParse(parts[parts.Length - 2], out var amount))
+                throw new ArgumentException("Invalid amount in InventoryItem string.");
+
+            // storageString er sidste felt
+            var storageString = parts.Last();
+
+            // Pak material- og storage-strengene til objekter
+            var material = Material.FromString(materialString);
+            var storage = Storage.FromString(storageString);
+
             return new InventoryItem(material, amount, storage);
         }
+
     }
 }

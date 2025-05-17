@@ -15,27 +15,56 @@ namespace GettingRealWPF.Model
             Filepath = filepath;
         }
 
-        //Henter alle materialer fra filen og konverterer dem til Material-objekter
         public IEnumerable<Material> GetAllMaterials()
         {
-            if (!File.Exists(Filepath)) // Tjek, om filen overhovedet findes
-                return Enumerable.Empty<Material>();
+            // Hvis filen ikke findes eller er tom, seed med standard-materialer
+            if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
+            {
+                SeedInitialMaterials();
+            }
+
             try
             {
-                // Læs linjerne én ad gangen og konverter dem til Material-objekter
                 return File.ReadLines(Filepath)
                            .Select(line => Material.FromString(line))
                            .ToList();
             }
-            catch (IOException ioEx) // Andre IO-problemer
+            catch (IOException ioEx)
             {
                 throw new Exception("IO error reading materials from file", ioEx);
             }
-            catch (Exception ex) // Andre undtagelser.
+            catch (Exception ex)
             {
                 throw new Exception("Error reading materials from file", ex);
             }
         }
+
+        private void SeedInitialMaterials()
+        {
+            // Definér et sæt “standard” materialer
+            var defaults = new List<Material>
+        {
+            new Material(Material.Category.Bolte,           "M10 bolt",     10, Material.Unit.Pakker),
+            new Material(Material.Category.Gasflasker,      "CO2 flaske",   5,  Material.Unit.Flasker),
+            new Material(Material.Category.Skruer,          "Skruer 5mm",   100,Material.Unit.Pakker),
+            new Material(Material.Category.Rustfrit_Stål,   "Stålplade 2mm",2,  Material.Unit.Plader)
+        };
+
+            // Skriv dem til fil (overskriv eksisterende eller opret ny)
+            try
+            {
+                using var sw = new StreamWriter(Filepath, false);
+                foreach (var mat in defaults)
+                {
+                    sw.WriteLine(mat.ToString());
+                }
+            }
+            catch (IOException ioEx)
+            {
+                throw new Exception("IO error seeding materials to file", ioEx);
+            }
+        }
+
 
         //Henter et materiale fra filen og konverterer det til et Material-objekt
         public Material? GetMaterialByDescription(string materialDescription)

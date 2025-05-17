@@ -9,10 +9,18 @@ namespace GettingRealWPF.Model
 {
     public class Material
     {
-        public string Category { get; set; }
+        public Category MaterialCategory { get; set; }
         public string Description { get; set; }
         public int MinimumAmount { get; set; }
         public Unit MaterialUnit { get; set; }
+
+        public enum Category
+        {
+            Bolte,
+            Gasflasker,
+            Skruer,
+            Rustfrit_Stål,
+        }
 
         public enum Unit
         {
@@ -24,9 +32,9 @@ namespace GettingRealWPF.Model
             Pakker,
         }
 
-        public Material(string category, string description, int minimumAmount, Unit materialUnit)
+        public Material(Category materialCategory, string description, int minimumAmount, Unit materialUnit)
         {
-            Category = category;
+            MaterialCategory = materialCategory;
             Description = description;
             MinimumAmount = minimumAmount;
             MaterialUnit = materialUnit;
@@ -34,7 +42,7 @@ namespace GettingRealWPF.Model
 
         public override string ToString()
         {
-            return $"{Category},{Description},{MinimumAmount},{MaterialUnit}";
+            return $"{MaterialCategory},{Description},{MinimumAmount},{MaterialUnit}";
         }
 
         public static Material FromString(string input)
@@ -44,11 +52,11 @@ namespace GettingRealWPF.Model
             {
                 throw new ArgumentException("Invalid input format");
             }
-            string category = parts[0];
+            Category materialCategory = (Category)Enum.Parse(typeof(Category), parts[0]);
             string description = parts[1];
             int minimumAmount = int.Parse(parts[2]);
             Unit materialUnit = (Unit)Enum.Parse(typeof(Unit), parts[3]);
-            return new Material(category, description, minimumAmount, materialUnit);
+            return new Material(materialCategory, description, minimumAmount, materialUnit);
         }
     }
 }

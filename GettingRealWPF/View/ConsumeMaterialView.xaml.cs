@@ -24,5 +24,9 @@ namespace GettingRealWPF.View
             InitializeComponent();
             DataContext = new ViewModel.ConsumeMaterialViewModel();
         }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new HomeView());
+        }
     }
 }
