@@ -18,22 +18,49 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<Storage> GetAllStorages()
         {
-            if (!File.Exists(Filepath)) // Tjek, om filen overhovedet findes
-                return Enumerable.Empty<Storage>();
+            // Seed, hvis filen ikke findes eller er tom
+            if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
+            {
+                SeedInitialStorages();
+            }
+
             try
             {
-                // Læs linjerne én ad gangen og konverter dem til Storage-objekter
                 return File.ReadLines(Filepath)
                            .Select(line => Storage.FromString(line))
                            .ToList();
             }
-            catch (IOException ioEx) // Andre IO-problemer
+            catch (IOException ioEx)
             {
-                throw new Exception("IO error reading materials from file", ioEx);
+                throw new Exception("IO error reading storages from file", ioEx);
             }
-            catch (Exception ex) // Andre undtagelser.
+            catch (Exception ex)
             {
-                throw new Exception("Error reading materials from file", ex);
+                throw new Exception("Error reading storages from file", ex);
+            }
+        }
+
+        private void SeedInitialStorages()
+        {
+            var defaults = new List<Storage>
+        {
+            new Storage("Hovedlager"),
+            new Storage("Bil - Mads"),
+            new Storage("Bil - Martin"),
+            new Storage("Bil - David")
+        };
+
+            try
+            {
+                using var sw = new StreamWriter(Filepath, false);
+                foreach (var s in defaults)
+                {
+                    sw.WriteLine(s.ToString());
+                }
+            }
+            catch (IOException ioEx)
+            {
+                throw new Exception("IO error writing seed storages to file", ioEx);
             }
         }
 
