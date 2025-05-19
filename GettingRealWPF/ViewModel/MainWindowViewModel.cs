@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using GettingRealWPF.Model;
 using GettingRealWPF.Models;
-using GettingRealWPF.Repositories;
 
 namespace GettingRealWPF.ViewModels
 {

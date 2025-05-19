@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using GettingRealWPF.Models;
 
-namespace GettingRealWPF.Repositories;
+namespace GettingRealWPF.Model;
 public class FileUserRepository
 {
     private readonly string filePath;
