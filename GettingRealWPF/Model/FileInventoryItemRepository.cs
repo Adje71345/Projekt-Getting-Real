@@ -48,8 +48,8 @@ namespace GettingRealWPF.Model
             var storages = storageRepo.GetAllStorages().ToList();
 
             // Vælg nogle standard-kombinationer (antag at de findes)
-            var bolt = materials.First(m => m.Description == "M10 bolt");
-            var co2 = materials.First(m => m.Description == "CO2 flaske");
+            var bolt = materials.First(m => m.Description == "Bolte M10x50");
+            var co2 = materials.First(m => m.Description == "CO2");
             var hovedlager = storages.First(s => s.StorageName == "Hovedlager");
             var reservedel = storages.First(s => s.StorageName == "Bil - Mads");
 
@@ -101,6 +101,27 @@ namespace GettingRealWPF.Model
             }
         }
 
+        private void SaveInventoryItemsToFile(IEnumerable<InventoryItem> items)
+        {
+            try
+            {
+                using var sw = new StreamWriter(Filepath, false);
+                foreach (var item in items)
+                {
+                    sw.WriteLine(item.ToString());
+                }
+            }
+            catch (IOException ioEx)
+            {
+                throw new Exception("IO error writing materials to file", ioEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error writing materials to file", ex);
+            }
+        }
+
+
         public void UpdateInventoryItem(InventoryItem inventoryItem)
         {
             // Hent alle items som en liste
@@ -118,51 +139,18 @@ namespace GettingRealWPF.Model
             // Overskriv den gamle
             allItems[idx] = inventoryItem;
 
-            // Skriv hele listen tilbage til fil
-            try
-            {
-                using var sw = new StreamWriter(Filepath, false);
-                foreach (var item in allItems)
-                    sw.WriteLine(item.ToString());
-            }
-            catch (IOException ioEx)
-            {
-                throw new Exception("IO error writing materials to file", ioEx);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error writing materials to file", ex);
-            }
+            SaveInventoryItemsToFile(allItems);
         }
-
 
         public void DeleteInventoryItem(string materialDescription, string location)
         {
-            var existingItem = GetInventoryItem(materialDescription, location);
-            if (existingItem == null)
-                throw new ArgumentException($"InventoryItem with material {materialDescription} and location {location} does not exist.");
-
             var allItems = GetAllInventoryItems().ToList();
-            allItems.Remove(existingItem);
 
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(Filepath, false))
-                {
-                    foreach (var item in allItems)
-                    {
-                        sw.WriteLine(item.ToString());
-                    }
-                }
-            }
-            catch (IOException ioEx)
-            {
-                throw new Exception("IO error writing materials to file", ioEx);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error writing materials to file", ex);
-            }
+            allItems.RemoveAll(item =>
+                item.Material.Description.Equals(materialDescription, StringComparison.OrdinalIgnoreCase) &&
+                item.Storage.StorageName.Equals(location, StringComparison.OrdinalIgnoreCase));
+
+            SaveInventoryItemsToFile(allItems);
         }
 
         public void IncreaseAmount(string materialDescription, string location, int amount)
@@ -185,39 +173,56 @@ namespace GettingRealWPF.Model
             UpdateInventoryItem(existingItem);
         }
 
-        public void MoveInventoryItem(string materialDescription, string currentLocation, string newLocation)
+        private void MoveFullInventoryItem(string materialDescription, string currentLocation, string newLocation)
         {
             var existingItem = GetInventoryItem(materialDescription, currentLocation);
             if (existingItem == null)
                 throw new ArgumentException($"InventoryItem with material {materialDescription} and location {currentLocation} does not exist.");
 
-            // Opret ny Storage med ny lokation
+            // Opret ny Storage og det opdaterede inventory-item
             var newStorage = new Storage(newLocation);
-
-            // Opret det opdaterede InventoryItem
             var updatedItem = new InventoryItem(existingItem.Material, existingItem.Amount, newStorage);
 
             var allItems = GetAllInventoryItems().ToList();
-            allItems.Remove(existingItem); // Fjern det gamle objekt baseret på beskrivelse og lokation
+            allItems.RemoveAll(item =>
+                item.Material.Description.Equals(materialDescription, StringComparison.OrdinalIgnoreCase) &&
+                item.Storage.StorageName.Equals(currentLocation, StringComparison.OrdinalIgnoreCase));
             allItems.Add(updatedItem);
 
-            try
+            SaveInventoryItemsToFile(allItems);
+        }
+
+        public void MoveInventoryItem(string materialDescription, string currentLocation, string newLocation, int moveAmount)
+        {
+            var existingItem = GetInventoryItem(materialDescription, currentLocation);
+            if (existingItem == null)
+                throw new ArgumentException($"InventoryItem with material {materialDescription} and location {currentLocation} does not exist.");
+
+            // Hele flytning
+            if (moveAmount == existingItem.Amount)
             {
-                using (StreamWriter sw = new StreamWriter(Filepath, false))
-                {
-                    foreach (var item in allItems)
-                    {
-                        sw.WriteLine(item.ToString());
-                    }
-                }
+                MoveFullInventoryItem(materialDescription, currentLocation, newLocation);
+                DeleteInventoryItem(materialDescription, currentLocation); // Fjern den gamle post korrekt
+                return;
             }
-            catch (IOException ioEx)
+
+            //Dele flytning
+            DecreaseAmount(materialDescription, currentLocation, moveAmount);
+            var targetItem = GetInventoryItem(materialDescription, newLocation);
+
+            if (targetItem != null)
             {
-                throw new Exception("IO error writing materials to file", ioEx);
+                IncreaseAmount(materialDescription, newLocation, moveAmount);
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("Error writing materials to file", ex);
+                // Hvis der ikke findes et item, opret en ny post
+                var newStorage = new Storage(newLocation);
+                var movedItem = new InventoryItem(existingItem.Material, moveAmount, newStorage);
+
+                var allItems = GetAllInventoryItems().ToList();
+                allItems.Add(movedItem);
+                SaveInventoryItemsToFile(allItems);
             }
         }
     }

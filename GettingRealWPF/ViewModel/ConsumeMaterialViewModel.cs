@@ -231,7 +231,8 @@ namespace GettingRealWPF.ViewModel
             var filtered = InventoryItems
                 .Where(item => item.Material.MaterialCategory == SelectedCategory)
                 .Select(item => item.Material)
-                .Distinct();
+                .GroupBy(m => m.Description)
+                .Select(g => g.First());
 
             foreach (var m in filtered)
                 Materials.Add(m);

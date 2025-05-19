@@ -16,20 +16,23 @@ namespace GettingRealWPF.Model
 
         public enum Category
         {
-            Bolte,
-            Gasflasker,
-            Skruer,
-            Rustfrit_Stål,
+            Svejsning,
+            Stål,
+            Befæstelse,
+            Slibning,
+            Gas,
+            Sikkerhed,
         }
 
         public enum Unit
         {
-            Kg,
-            Ruller,
+            Par,
+            Stk,
             Flasker,
-            Plader,
-            Længde,
             Pakker,
+            Længder,
+            Plader,
+            Ruller,
         }
 
         public Material(Category materialCategory, string description, int minimumAmount, Unit materialUnit)

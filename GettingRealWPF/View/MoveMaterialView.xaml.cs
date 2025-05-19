@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GettingRealWPF.View
@@ -22,6 +23,20 @@ namespace GettingRealWPF.View
         public MoveMaterialView()
         {
             InitializeComponent();
+            DataContext = new ViewModel.MoveMaterialViewModel();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var navigationService = NavigationService.GetNavigationService(this);
+            if (navigationService != null)
+            {
+                navigationService.Navigate(new HomeView());
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }
