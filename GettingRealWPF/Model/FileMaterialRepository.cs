@@ -44,10 +44,10 @@ namespace GettingRealWPF.Model
             // Definér et sæt “standard” materialer
             var defaults = new List<Material>
         {
-            new Material(Material.Category.Bolte,           "M10 bolt",     10, Material.Unit.Pakker),
-            new Material(Material.Category.Gasflasker,      "CO2 flaske",   5,  Material.Unit.Flasker),
-            new Material(Material.Category.Skruer,          "Skruer 5mm",   100,Material.Unit.Pakker),
-            new Material(Material.Category.Rustfrit_Stål,   "Stålplade 2mm",2,  Material.Unit.Plader)
+            new Material(Material.Category.Befæstelse, "Bolte M10x50", 3, Material.Unit.Pakker),
+            new Material(Material.Category.Gas, "CO2", 5, Material.Unit.Flasker),
+            new Material(Material.Category.Befæstelse, "Møtrikker M8", 3,Material.Unit.Pakker),
+            new Material(Material.Category.Stål, "Stålplade 2mm", 1, Material.Unit.Plader)
         };
 
             // Skriv dem til fil (overskriv eksisterende eller opret ny)

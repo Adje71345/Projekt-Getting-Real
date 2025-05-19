@@ -1,4 +1,4 @@
-﻿<Window x:Class="GettingRealWPF.View.RegisterMaterialView"
+﻿<Window x:Class="GettingRealWPF.View.MoveMaterialView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -33,25 +33,26 @@
 
                 <!-- First Row -->
                 <TextBlock Margin="25 0 0 5" Text="Kategori" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
                 <!-- Second Row -->
                 <TextBlock Margin="25 0 0 5" Text="Materiale" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" ItemsSource="{Binding Materials}" SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}" DisplayMemberPath="Description"/>
                 <!-- Third Row -->
                 <TextBlock Margin="25 0 0 5" Text="Fra placering" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedFromLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
                 <!-- Fourth Row -->
                 <TextBlock Margin="25 0 0 5" Text="Til placering" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedToLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
                 <!-- Fith Row -->
                 <TextBlock Margin="25 0 0 5" Text="Antal at flytte" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
-                <TextBox Margin="0,0,0,5" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top"/>
-                <TextBox Margin="0,0,500,5" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black"/>
-                </Grid>
+                <TextBox Margin="0,0,0,5" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top" Text="{Binding MoveAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0,0,500,5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
+            </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,0" Width="400" Height="50" VerticalAlignment="Bottom">
-                <Button Content="Anuller" Command="{Binding}" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
-                <Button Content="Flyt" Command="{Binding}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
+                <Button Content="Anuller" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
+                <Button Content="Flyt" Command="{Binding MoveMaterialCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
             </StackPanel>
+            <TextBlock Text="{Binding VerificationMessage}" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Red"/>
         </StackPanel>
     </Border>
 </Window>
