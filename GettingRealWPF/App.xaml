@@ -1,16 +1,11 @@
-﻿<Application x:Class="Login_Stuff.App"
+﻿<Application x:Class="GettingRealWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Login_Stuff"
-             xmlns:viewmodel="clr-namespace:GettingRealWPF.ViewModel"
-             xmlns:app="clr-namespace:GettingRealWPF.ViewModel"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:GettingRealWPF"
+             xmlns:view="clr-namespace:GettingRealWPF.View"
+             xmlns:viewModel="clr-namespace:GettingRealWPF.ViewModel"
+             xmlns:uc="clr-namespace:GettingRealWPF.View.UserControls"
+             StartupUri="View/HomeView.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/SearchBoxTheme.xaml"/>
-            </ResourceDictionary.MergedDictionaries> 
-        </ResourceDictionary>
     </Application.Resources>
-</Application>
+</Application> 
