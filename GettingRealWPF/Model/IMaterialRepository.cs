@@ -8,6 +8,7 @@ namespace GettingRealWPF.Model
 {
     public interface IMaterialRepository
     {
+        public IEnumerable<Material> GetAllMaterials();
         public void AddInventoryItem(InventoryItem inventoryItem) { }
         public void UpdateInventoryItem(InventoryItem inventoryItem) { }
         public void DeleteInventoryItem(string materialDescription, string location) { }
