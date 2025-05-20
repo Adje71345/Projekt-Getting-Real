@@ -16,6 +16,6 @@
         </Grid.RowDefinitions>
 
         <uc:SearchBar x:Name="searchBar" Grid.Row="0" />
-        <views:InventoryList Grid.Row="1"/>
+        <uc:InventoryList Grid.Row="1"/>
     </Grid>
 </UserControl>
