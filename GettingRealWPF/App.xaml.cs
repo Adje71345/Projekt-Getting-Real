@@ -1,8 +1,12 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using GettingRealWPF.ViewModel;
+using GettingRealWPF.View.UserControls;
+using GettingRealWPF.View;
 
-namespace Login_Stuff
+
+namespace GettingRealWPF
 {
     /// <summary>
     /// Interaction logic for App.xaml
