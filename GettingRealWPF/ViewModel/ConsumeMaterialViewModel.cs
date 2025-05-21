@@ -295,6 +295,23 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
+        public void ClearFields()
+        {
+            // Nulstil inputs
+            AmountToConsume = 0;
+            AmountToConsumeText = string.Empty;
+
+            // Nulstil references
+            SelectedMaterial = null;
+            SelectedStorage = null;
+
+            // Nulstil kategori til sidst (dette kan påvirke materials-listen)
+            SelectedCategory = null;
+
+            // Nulstil statusbeskeder
+            VerificationMessage = string.Empty;
+        }
+
         //Eventhandler implementering
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

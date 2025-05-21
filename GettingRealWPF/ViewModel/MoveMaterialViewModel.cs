@@ -262,7 +262,7 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
-        private void ClearFields()
+        public void ClearFields()
         {
             SelectedCategory = null;
             SelectedMaterial = null;

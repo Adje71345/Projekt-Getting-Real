@@ -51,6 +51,7 @@ namespace GettingRealWPF.ViewModel
                 {
                     _selectedMaterial = value;
                     OnPropertyChanged(nameof(SelectedMaterial));
+                    OnPropertyChanged(nameof(SelectedUnitDisplay));
 
                     // Når materiale ændres, opdater lagerbeholdning
                     UpdateSelectedInventoryItem();
@@ -133,6 +134,9 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
+        // Computed Property til at vise den valgte enhed
+        public string SelectedUnitDisplay => SelectedMaterial?.MaterialUnit.ToString() ?? string.Empty;
+
         // Beregnet ny beholdning efter tilføjelse
         private int _updatedAmount;
         public int UpdatedAmount
@@ -186,14 +190,13 @@ namespace GettingRealWPF.ViewModel
             Materials.Clear();
             Storages.Clear();
 
-            // Tilføj unikke kategorier fra materialer
-            foreach (var m in _materialRepository.GetAllMaterials())
+            // Tilføj alle kategorier fra enum
+            foreach (Material.Category category in Enum.GetValues(typeof(Material.Category)))
             {
-                if (!Categories.Contains(m.MaterialCategory))
-                    Categories.Add(m.MaterialCategory);
-
-                Materials.Add(m);
+                Categories.Add(category);
             }
+
+            // Ikke tilføj materialer her - de tilføjes først når en kategori er valgt
 
             // Tilføj lagerplaceringer
             foreach (var s in _storageRepository.GetAllStorages())
@@ -205,18 +208,29 @@ namespace GettingRealWPF.ViewModel
         // Filtrerer materialer baseret på valgt kategori
         private void FilterMaterialsByCategory()
         {
+            Materials.Clear();
+
             if (SelectedCategory == null)
             {
-                Materials.Clear();
                 return;
             }
 
-            var filteredMaterials = _materialRepository.GetAllMaterials()
-                .Where(m => m.MaterialCategory == SelectedCategory.Value);
+            // Hent materialer fra InventoryItems i stedet for MaterialRepository
+            var inventoryItems = _inventoryItemRepository.GetAllInventoryItems().ToList();
 
-            Materials.Clear();
-            foreach (var m in filteredMaterials)
-                Materials.Add(m);
+            // Find unikke materialer i den valgte kategori
+            var uniqueMaterials = inventoryItems
+                .Where(item => item.Material.MaterialCategory == SelectedCategory)
+                .Select(item => item.Material)
+                .GroupBy(m => m.Description)  // Gruppér for at undgå duplikater
+                .Select(g => g.First())       // Tag kun ét materiale fra hver gruppe
+                .ToList();
+
+            // Tilføj de unikke materialer til dropdown listen
+            foreach (var material in uniqueMaterials)
+            {
+                Materials.Add(material);
+            }
         }
 
         // Opdaterer SelectedInventoryItem baseret på valgt materiale og lager
@@ -285,5 +299,24 @@ namespace GettingRealWPF.ViewModel
         // Hjælpe-metode til at notificere UI om property-ændringer
         protected void OnPropertyChanged(string propertyName)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+
+        public void ClearFields()
+        {
+            
+            AmountToAdd = 0;
+            CurrentAmount = 0;
+            UpdatedAmount = 0;
+            StatusMessage = null;
+
+            
+            SelectedMaterial = null;
+            SelectedStorage = null;
+            SelectedInventoryItem = null;
+
+           
+            SelectedCategory = null;
+        }
     }
+    
 }

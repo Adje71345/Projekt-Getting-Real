@@ -20,7 +20,7 @@ namespace GettingRealWPF.ViewModel
 
         public InventoryListViewModel()
         {
-            _inventoryItemRepository = new MockInventoryItemRepository();
+            _inventoryItemRepository = new FileInventoryItemRepository("inventoryitems.txt");
             LoadData();
         }
 

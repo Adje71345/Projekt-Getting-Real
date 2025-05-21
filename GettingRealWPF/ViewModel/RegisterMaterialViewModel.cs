@@ -151,7 +151,7 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
-        private void ClearFields()
+        public void ClearFields()
         {
             SelectedCategory = null;
             SelectedDescription = null;

@@ -25,37 +25,38 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Kategori -->
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Kategori" FontWeight="Bold" Margin="25 0 0 5"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Margin="0 0 75 5"
-                          ItemsSource="{Binding Categories}"
-                          SelectedItem="{Binding SelectedCategory}" />
+                <TextBlock Margin="25 0 0 5" Text="Kategori" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" 
+                          VerticalAlignment="Top" BorderBrush="#FF020202" 
+                          ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
 
                 <!-- Materiale -->
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Materiale" FontWeight="Bold" Margin="25 0 0 5"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Margin="0 0 75 5"
-                          ItemsSource="{Binding Materials}"
-                          SelectedItem="{Binding SelectedMaterial}" />
+                <TextBlock Margin="25 0 0 5" Text="Materiale" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" 
+                          ItemsSource="{Binding Materials}" 
+                          SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}" 
+                          DisplayMemberPath="Description"/>
 
                 <!-- Placering -->
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Placering" FontWeight="Bold" Margin="25 0 0 5"/>
-                <ComboBox Grid.Row="2" Grid.Column="1" Margin="0 0 75 5"
-                          ItemsSource="{Binding Storages}"
-                          SelectedItem="{Binding SelectedStorage}" />
+                <TextBlock Margin="25 0 0 5" Text="Placering" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedStorage, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
 
-                <!-- Nuværende beholdning -->
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Nuværende beholdning" FontWeight="Bold" Margin="25 0 0 5"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="0 0 75 5"
-                         Text="{Binding CurrentAmount}" IsReadOnly="True" />
-
-                <!-- Tilføj antal -->
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Tilføj antal" FontWeight="Bold" Margin="25 0 0 5"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Margin="0 0 75 5"
-                         Text="{Binding AmountToAdd}" />
-
-                <!-- Ny beholdning -->
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="Ny beholdning" FontWeight="Bold" Margin="25 0 0 5"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Margin="0 0 75 5"
-                         Text="{Binding UpdatedAmount}" IsReadOnly="True" />
+                    <!-- Nuværende beholdning-->
+                <TextBlock Margin="25 0 0 5" Text="Nuværende beholdning" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+                <TextBox Margin="0 0 75 5" IsReadOnly="True" Grid.Row="3" Grid.Column="1" Height="21" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black" Width="80" HorizontalAlignment="Left" Text="{Binding CurrentAmount, Mode=OneWay}"/>
+                <!-- Tilføj antal med enhed -->
+                <TextBlock Margin="25 0 0 5" Text="Tilføj antal" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
+                <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Margin="0,0,0,5" Grid.Row="4" Grid.Column="0" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" Text="{Binding AmountToAdd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="40 0 0 5" Grid.Row="4" Grid.Column="1" Height="21" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black" Width="160" HorizontalAlignment="Left" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
+                </Grid>
+                <!-- Ny beholdningw -->
+                <TextBlock Margin="25 0 0 5" Text="Ny beholdning" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
+                <TextBox Margin="0 0 75 5" IsReadOnly="True" Grid.Row="5" Grid.Column="1" Height="21" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black" Width="80" HorizontalAlignment="Left" Text="{Binding UpdatedAmount, Mode=OneWay}"/>
             </Grid>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,10" Width="400" Height="50">

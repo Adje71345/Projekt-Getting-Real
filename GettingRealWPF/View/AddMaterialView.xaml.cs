@@ -18,21 +18,13 @@ namespace GettingRealWPF.View
                 new FileMaterialRepository("materials.txt"),
                 new FileInventoryItemRepository("inventoryitems.txt"),
                 new FileStorageRepository("storages.txt"));
-        } // <-- VIGTIGT: Manglende afsluttende parentes og semikolon her
+        }
 
-        // CancelButton_Click metoden skal være UDEN FOR konstruktøren
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Naviger tilbage til InventoryListView
-            var window = Window.GetWindow(this);
-            if (window is HomeView homeView)
-            {
-                var viewModel = homeView.DataContext as HomeViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.CurrentView = new InventoryListView();
-                }
-            }
+            var viewModel = DataContext as AddMaterialViewModel;
+            viewModel?.ClearFields();
         }
+
     }
 }
