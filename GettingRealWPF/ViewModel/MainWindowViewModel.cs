@@ -46,10 +46,16 @@ namespace GettingRealWPF.ViewModels
             var user = users.FirstOrDefault(u => u.Name == Username && u.Password == Password);
 
             LoginMessage = user != null ? "Login succesfuldt" : "Forkert brugernavn eller adgangskode";
+
+            // Udløs event for vellykket login
+            LoginSuccessful?.Invoke(this, EventArgs.Empty);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        // Event for vellykket login
+        public event EventHandler LoginSuccessful;
     }
 }

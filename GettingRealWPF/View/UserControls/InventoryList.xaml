@@ -25,8 +25,8 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Kategori"
-                                    Binding="{Binding Material.Category}" 
-                                    Width="120"/>
+                                    Binding="{Binding Material.MaterialCategory}" 
+                                    Width="150"/>
                 <DataGridTextColumn Header="Beskrivelse" 
                                     Binding="{Binding Material.Description}" 
                                     Width="*"/>

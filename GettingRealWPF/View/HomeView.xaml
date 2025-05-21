@@ -31,9 +31,8 @@
             </Grid.ColumnDefinitions>
             <!-- Placeholder for MenuBar -->
             <ContentControl x:Name="menuBarPlaceholder" Grid.Column="0"/>
-            <Frame Grid.Column="1" 
-                   Content="{Binding CurrentView}" 
-                   NavigationUIVisibility="Hidden"/>
+            <ContentControl Grid.Column="1" 
+                   Content="{Binding CurrentView}"/>
         </Grid>
     </Grid>
 

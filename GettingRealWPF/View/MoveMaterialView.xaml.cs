@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GettingRealWPF.ViewModel;
 
 namespace GettingRealWPF.View
 {
     /// <summary>
     /// Interaction logic for MoveMaterialView.xaml
     /// </summary>
-    public partial class MoveMaterialView : Window
+    public partial class MoveMaterialView : UserControl
     {
         public MoveMaterialView()
         {
@@ -28,14 +29,16 @@ namespace GettingRealWPF.View
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var navigationService = NavigationService.GetNavigationService(this);
-            if (navigationService != null)
+           
+            // Naviger tilbage til InventoryListView
+            var window = Window.GetWindow(this);
+            if (window is HomeView homeView)
             {
-                navigationService.Navigate(new HomeView());
-            }
-            else
-            {
-                this.Close();
+                var viewModel = homeView.DataContext as HomeViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.CurrentView = new InventoryListView();
+                }
             }
         }
     }
