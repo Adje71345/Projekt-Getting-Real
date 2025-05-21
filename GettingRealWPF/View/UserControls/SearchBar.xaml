@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="GettingRealWPF.View.UserControls.SearchBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="55" 
+             d:DesignWidth="980">
+    <Grid Width="980" Height="55">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                BorderBrush="LightGray"
+                BorderThickness="0.5"
+                Background="White"
+                Margin="0,5,5,5">
+            <Grid Background="White">
+                <TextBox x:Name="txtInput"
+                         Text=""
+                         TextChanged="txtInput_TextChanged"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="16"
+                         FontWeight="Light"
+                         Foreground="Gray"
+                         VerticalContentAlignment="Center"
+                         Margin="10,10,10,10"/>
+
+                <TextBlock x:Name="txtPlaceholder"
+                           Text="Søg efter materiale" 
+                           FontSize="14" 
+                           FontWeight="Light"
+                           Foreground="DarkGray"
+                           VerticalAlignment="Center"
+                           Margin="10,10,10,10"
+                           Panel.ZIndex="-1"/>
+
+                <Button x:Name="btnClear" 
+                        Width="50" 
+                        HorizontalAlignment="Right" 
+                        Content="X" 
+                        Foreground="LightGray" 
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Click="btnClear_Click"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1"
+                BorderBrush="LightGray"
+                BorderThickness="0.5"
+                Background="White"
+                Margin="0,5,15,5">
+            <Grid>
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+
+                    <TextBlock x:Name="txtSearch"
+                               Text=""
+                               Visibility="Collapsed"/>
+
+                    <ComboBox x:Name="cmbCategory" 
+                              Width="225" 
+                              Height="35" 
+                              Margin="0,0,15,0"
+                              SelectionChanged="OnCategorySelectionChanged"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center">
+                    </ComboBox>
+
+
+
+                    <ComboBox x:Name="cmbLocation" 
+                              Width="225" 
+                              Height="35"
+                              SelectionChanged="OnLocationSelectionChanged"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center">
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
