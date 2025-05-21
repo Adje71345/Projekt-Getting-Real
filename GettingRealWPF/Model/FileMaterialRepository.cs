@@ -17,10 +17,17 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<Material> GetAllMaterials()
         {
-            // Hvis filen ikke findes eller er tom, seed med standard-materialer
+            // Hvis filen ikke findes eller er tom, brug mock-data fra MockInventoryItemRepository
             if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
             {
-                SeedInitialMaterials();
+                var mockRepo = new MockInventoryItemRepository();
+                var mockMaterials = mockRepo.GetAllInventoryItems()
+                                            .Select(i => i.Material) // Henter Material-objekterne
+                                            .Distinct() // Fjerner dubletter
+                                            .ToList();
+
+                // Skriv mock-data til filen
+                SaveMaterialsToFile(mockMaterials);
             }
 
             try
@@ -39,32 +46,25 @@ namespace GettingRealWPF.Model
             }
         }
 
-        private void SeedInitialMaterials()
+        private void SaveMaterialsToFile(IEnumerable<Material> materials)
         {
-            // Definér et sæt “standard” materialer
-            var defaults = new List<Material>
-        {
-            new Material(Material.Category.Befæstelse, "Bolte M10x50", 3, Material.Unit.Pakker),
-            new Material(Material.Category.Gas, "CO2", 5, Material.Unit.Flasker),
-            new Material(Material.Category.Befæstelse, "Møtrikker M8", 3,Material.Unit.Pakker),
-            new Material(Material.Category.Stål, "Stålplade 2mm", 1, Material.Unit.Plader)
-        };
-
-            // Skriv dem til fil (overskriv eksisterende eller opret ny)
             try
             {
                 using var sw = new StreamWriter(Filepath, false);
-                foreach (var mat in defaults)
+                foreach (var material in materials)
                 {
-                    sw.WriteLine(mat.ToString());
+                    sw.WriteLine(material.ToString());
                 }
             }
             catch (IOException ioEx)
             {
-                throw new Exception("IO error seeding materials to file", ioEx);
+                throw new Exception("IO error writing materials to file", ioEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error writing materials to file", ex);
             }
         }
-
 
         //Henter et materiale fra filen og konverterer det til et Material-objekt
         public Material? GetMaterialByDescription(string materialDescription)

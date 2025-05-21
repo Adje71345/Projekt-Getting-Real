@@ -45,27 +45,29 @@ namespace GettingRealWPF.ViewModel
             = new ObservableCollection<Storage>();
         public ObservableCollection<InventoryItem> InventoryItems { get; }
             = new ObservableCollection<InventoryItem>();
+        public ObservableCollection<Material.Unit> Unit { get; } = new ObservableCollection<Material.Unit>();
 
         private void LoadInitialData()
         {
             foreach (var m in _materialRepository.GetAllMaterials()) Materials.Add(m);
             foreach (var s in _storageRepository.GetAllStorages()) Storages.Add(s);
             foreach (var i in _inventoryItemRepository.GetAllInventoryItems()) InventoryItems.Add(i);
+            foreach (var u in Enum.GetValues(typeof(Material.Unit)).Cast<Material.Unit>()) Unit.Add(u);
 
             Categories.Clear();
             foreach (var cat in InventoryItems.Select(i => i.Material.MaterialCategory).Distinct()) Categories.Add(cat);
         }
 
        
-        private string _selectedCategory;
+        private Material.Category? _selectedCategory;
         private string _selectedDescription;
         private int _selectedQuantity;
-        private string _selectedUnit;
+        private Material.Unit? _selectedUnit;
         private Storage _selectedStorage;
         private int _selectedMinimumAmount;
 
         // Kategori
-        public string SelectedCategory
+        public Material.Category? SelectedCategory
         {
             get => _selectedCategory;
             set { _selectedCategory = value; OnPropertyChanged(nameof(SelectedCategory)); }
@@ -87,7 +89,7 @@ namespace GettingRealWPF.ViewModel
 
 
         //Enhed
-        public string SelectedUnit
+        public Material.Unit? SelectedUnit
         {
             get => _selectedUnit;
             set { _selectedUnit = value; OnPropertyChanged(nameof(SelectedUnit)); }
@@ -116,10 +118,10 @@ namespace GettingRealWPF.ViewModel
         public ICommand RegisterMaterialCommand { get; }
         private bool CanRegisterMaterial()
         {
-            return !string.IsNullOrWhiteSpace(SelectedCategory) &&
+            return SelectedCategory.HasValue &&
                    !string.IsNullOrWhiteSpace(SelectedDescription) &&
                    SelectedQuantity > 0 &&
-                   !string.IsNullOrWhiteSpace(SelectedUnit) &&
+                   SelectedUnit.HasValue &&
                    SelectedStorage != null &&
                    SelectedMinimumAmount >= 0;
         }
@@ -130,10 +132,10 @@ namespace GettingRealWPF.ViewModel
             {
                 // Opret et nyt materiale
                 var newMaterial = new Material(
-                    (Material.Category)Enum.Parse(typeof(Material.Category), SelectedCategory),
+                    SelectedCategory.Value,
                     SelectedDescription,
                     SelectedQuantity,
-                    (Material.Unit)Enum.Parse(typeof(Material.Unit), SelectedUnit)
+                    SelectedUnit.Value
                 );
                 // Opret et nyt inventory item
                 var newInventoryItem = new InventoryItem(newMaterial, SelectedQuantity, SelectedStorage);
