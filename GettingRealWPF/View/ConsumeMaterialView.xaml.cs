@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GettingRealWPF.ViewModel;
 
 namespace GettingRealWPF.View
 {
     /// <summary>
     /// Interaction logic for ConsumeMaterialView.xaml
     /// </summary>
-    public partial class ConsumeMaterialView : Page
+    public partial class ConsumeMaterialView : UserControl
     {
         public ConsumeMaterialView()
         {
@@ -26,7 +27,17 @@ namespace GettingRealWPF.View
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new HomeView());
+            // Hvis dette tidligere var et vindue, der lukkede sig selv:
+            // Naviger tilbage til InventoryListView
+            var window = Window.GetWindow(this);
+            if (window is HomeView homeView)
+            {
+                var viewModel = homeView.DataContext as HomeViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.CurrentView = new InventoryListView();
+                }
+            }
         }
     }
 }

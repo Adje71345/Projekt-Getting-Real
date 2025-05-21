@@ -5,7 +5,7 @@
              xmlns:view="clr-namespace:GettingRealWPF.View"
              xmlns:viewModel="clr-namespace:GettingRealWPF.ViewModel"
              xmlns:uc="clr-namespace:GettingRealWPF.View.UserControls"
-             StartupUri="View/HomeView.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
     </Application.Resources>
 </Application> 

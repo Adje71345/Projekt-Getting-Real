@@ -26,12 +26,10 @@ namespace GettingRealWPF.View
         public HomeView()
         {
             this.DataContext = new HomeViewModel();
-
             InitializeComponent();
 
             var menuBar = new GettingRealWPF.View.UserControls.MenuBar();
             menuBarPlaceholder.Content = menuBar;
-
             var menuControl = menuBar;
 
             _viewModel = DataContext as HomeViewModel;
@@ -41,15 +39,15 @@ namespace GettingRealWPF.View
 
             menuControl.rbLagerListe.IsChecked = true;
 
-            // Menu event handlers
+            // Alle views er nu UserControls
             menuControl.rbLagerListe.Checked += (s, e) =>
                 _viewModel.CurrentView = new InventoryListView();
 
             menuControl.rbRegisterMaterial.Checked += (s, e) =>
                 _viewModel.CurrentView = new RegisterMaterialView();
 
-        /*    menuControl.rbAddMaterial.Checked += (s, e) =>
-                _viewModel.CurrentView = new AddMaterialView();*/
+            menuControl.rbAddMaterial.Checked += (s, e) =>
+            _viewModel.CurrentView = new AddMaterialView();
 
             menuControl.rbConsumeMaterial.Checked += (s, e) =>
                 _viewModel.CurrentView = new ConsumeMaterialView();

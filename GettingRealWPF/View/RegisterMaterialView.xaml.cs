@@ -17,7 +17,7 @@ namespace GettingRealWPF.View
     /// <summary>
     /// Interaction logic for RegisterMaterialView.xaml
     /// </summary>
-    public partial class RegisterMaterialView : Window
+    public partial class RegisterMaterialView : UserControl
     {
         public RegisterMaterialView()
         {
