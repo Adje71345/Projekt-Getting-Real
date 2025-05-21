@@ -18,10 +18,17 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<Storage> GetAllStorages()
         {
-            // Seed, hvis filen ikke findes eller er tom
+            // Hvis filen ikke findes eller er tom, brug mock-data
             if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
             {
-                SeedInitialStorages();
+                var mockRepo = new MockInventoryItemRepository();
+                var mockStorages = mockRepo.GetAllInventoryItems()
+                                           .Select(i => i.Storage) // Henter Storage-objekterne
+                                           .Distinct() // Sørger for, at der ikke er dubletter
+                                           .ToList();
+
+                // Skriv mock-data til filen
+                SaveStoragesToFile(mockStorages);
             }
 
             try
@@ -40,27 +47,23 @@ namespace GettingRealWPF.Model
             }
         }
 
-        private void SeedInitialStorages()
+        private void SaveStoragesToFile(IEnumerable<Storage> storages)
         {
-            var defaults = new List<Storage>
-        {
-            new Storage("Hovedlager"),
-            new Storage("Bil - Mads"),
-            new Storage("Bil - Martin"),
-            new Storage("Bil - David")
-        };
-
             try
             {
                 using var sw = new StreamWriter(Filepath, false);
-                foreach (var s in defaults)
+                foreach (var storage in storages)
                 {
-                    sw.WriteLine(s.ToString());
+                    sw.WriteLine(storage.ToString());
                 }
             }
             catch (IOException ioEx)
             {
-                throw new Exception("IO error writing seed storages to file", ioEx);
+                throw new Exception("IO error writing storages to file", ioEx);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error writing storages to file", ex);
             }
         }
 

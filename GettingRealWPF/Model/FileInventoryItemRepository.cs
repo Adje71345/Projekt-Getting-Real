@@ -16,10 +16,14 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<InventoryItem> GetAllInventoryItems()
         {
-            // Seed, hvis filen ikke findes eller er tom
+            // Hvis filen ikke findes eller er tom, brug mock-data
             if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
             {
-                SeedInitialInventoryItems();
+                var mockRepo = new MockInventoryItemRepository();
+                var mockItems = mockRepo.GetAllInventoryItems().ToList();
+
+                // Skriv mock-items til filen, så den bliver initialiseret
+                SaveInventoryItemsToFile(mockItems);
             }
 
             try
@@ -35,40 +39,6 @@ namespace GettingRealWPF.Model
             catch (Exception ex)
             {
                 throw new Exception("Error reading inventory items from file", ex);
-            }
-        }
-
-        private void SeedInitialInventoryItems()
-        {
-            // Hent de seedede materialer og lagre
-            var materialRepo = new FileMaterialRepository("materials.txt");
-            var storageRepo = new FileStorageRepository("storages.txt");
-
-            var materials = materialRepo.GetAllMaterials().ToList();
-            var storages = storageRepo.GetAllStorages().ToList();
-
-            // Vælg nogle standard-kombinationer (antag at de findes)
-            var bolt = materials.First(m => m.Description == "Bolte M10x50");
-            var co2 = materials.First(m => m.Description == "CO2");
-            var hovedlager = storages.First(s => s.StorageName == "Hovedlager");
-            var reservedel = storages.First(s => s.StorageName == "Bil - Mads");
-
-            var defaults = new List<InventoryItem>
-        {
-            new InventoryItem(bolt,  50, hovedlager),
-            new InventoryItem(co2,   10, reservedel)
-        };
-
-            // Skriv dem til fil (overskriv eller opret ny fil)
-            try
-            {
-                using var sw = new StreamWriter(Filepath, false);
-                foreach (var item in defaults)
-                    sw.WriteLine(item.ToString());
-            }
-            catch (IOException ioEx)
-            {
-                throw new Exception("IO error writing seed inventory items to file", ioEx);
             }
         }
 
