@@ -25,6 +25,12 @@ namespace GettingRealWPF.View
         {
             InitializeComponent();
             DataContext = new ViewModel.RegisterMaterialViewModel();
-        }      
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as RegisterMaterialViewModel; // erstat med faktisk type
+            viewModel?.ClearFields();
+        }
     }
 }

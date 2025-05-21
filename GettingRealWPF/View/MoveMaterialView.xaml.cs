@@ -29,17 +29,9 @@ namespace GettingRealWPF.View
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            // Naviger tilbage til InventoryListView
-            var window = Window.GetWindow(this);
-            if (window is HomeView homeView)
-            {
-                var viewModel = homeView.DataContext as HomeViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.CurrentView = new InventoryListView();
-                }
-            }
+            var viewModel = DataContext as MoveMaterialViewModel; // erstat med faktisk type
+            viewModel?.ClearFields();
         }
+
     }
 }
