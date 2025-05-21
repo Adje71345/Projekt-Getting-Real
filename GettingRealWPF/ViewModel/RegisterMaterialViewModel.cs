@@ -134,7 +134,7 @@ namespace GettingRealWPF.ViewModel
                 var newMaterial = new Material(
                     SelectedCategory.Value,
                     SelectedDescription,
-                    SelectedQuantity,
+                    SelectedMinimumAmount,
                     SelectedUnit.Value
                 );
                 // Opret et nyt inventory item
