@@ -1,35 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GettingRealWPF.Model;
 using GettingRealWPF.ViewModel;
 
 namespace GettingRealWPF.View
 {
     /// <summary>
-    /// Interaction logic for MoveMaterialView.xaml
+    /// Interaction logic for AddMaterialView.xaml
     /// </summary>
-    public partial class MoveMaterialView : UserControl
+    public partial class AddMaterialView : UserControl
     {
-        public MoveMaterialView()
+        public AddMaterialView()
         {
             InitializeComponent();
-            DataContext = new ViewModel.MoveMaterialViewModel();
-        }
+            // Sæt DataContext til ViewModel med korrekte repositories
+            DataContext = new AddMaterialViewModel(
+                new FileMaterialRepository("materials.txt"),
+                new FileInventoryItemRepository("inventoryitems.txt"),
+                new FileStorageRepository("storages.txt"));
+        } // <-- VIGTIGT: Manglende afsluttende parentes og semikolon her
 
+        // CancelButton_Click metoden skal være UDEN FOR konstruktøren
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-           
             // Naviger tilbage til InventoryListView
             var window = Window.GetWindow(this);
             if (window is HomeView homeView)

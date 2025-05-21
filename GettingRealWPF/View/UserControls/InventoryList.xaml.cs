@@ -10,20 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GettingRealWPF.View
+namespace GettingRealWPF.View.UserControls
 {
-    /// <summary>
-    /// Interaction logic for RegisterMaterialView.xaml
-    /// </summary>
-    public partial class RegisterMaterialView : UserControl
+    
+    public partial class InventoryList : UserControl
     {
-        public RegisterMaterialView()
+        public InventoryList()
         {
             InitializeComponent();
-            DataContext = new ViewModel.RegisterMaterialViewModel();
         }
-        
     }
 }
