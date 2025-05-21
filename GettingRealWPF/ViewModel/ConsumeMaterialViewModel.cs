@@ -20,7 +20,7 @@ namespace GettingRealWPF.ViewModel
         private readonly IStorageRepository _storageRepository;
 
         //Constructors
-        public ConsumeMaterialViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
+        public RegisterMaterialViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
         {
         }
 
