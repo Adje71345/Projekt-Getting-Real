@@ -7,9 +7,13 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Remove="Images\Pro-stål logo.png" />
 		<None Remove="Images\ProStaal.png" />
 	</ItemGroup>
 	<ItemGroup>
+		<Resource Include="Images\Pro-stål logo.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
 		<Resource Include="Images\ProStaal.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>

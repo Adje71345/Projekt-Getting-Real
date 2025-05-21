@@ -10,8 +10,6 @@
         <DataGrid x:Name="dgMaterials" 
                   AutoGenerateColumns="False" 
                   ItemsSource="{Binding FilteredItems}"
-                  BorderThickness="1" 
-                  BorderBrush="#E5E5E5"
                   RowBackground="#F6F6F6" 
                   AlternatingRowBackground="#FAFAFA"
                   GridLinesVisibility="Horizontal" 
@@ -22,6 +20,29 @@
                   CanUserResizeColumns="False"
                   IsReadOnly="True"
                   FontSize="15">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#f0f0f0"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                    <Setter Property="BorderBrush" Value="#333333"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Grid>
+                                    <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}" 
+                                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Kategori"
