@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="GettingRealWPF.View.RegisterMaterialView"
+<UserControl x:Class="GettingRealWPF.View.RegisterMaterialView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -34,27 +34,28 @@
 
                 <!-- First Row -->
                 <TextBlock Margin="25 0 0 5" Text="Kategori" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202"/>
+                <ComboBox Command="{Binding SelectedCategory}" Margin="0 0 75 5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202"/>
                 <!-- Second Row -->
                 <TextBlock Margin="25 0 0 5" Text="Beskrivelse" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
-                <TextBox Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
+                <TextBox Command="{Binding Description}" Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
                 <!-- Third Row -->
                 <TextBlock Margin="25 0 0 5" Text="Antal" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
-                <TextBox Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
+                <TextBox Command="{Binding Quantity}" Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
                 <!-- Fourth Row -->
                 <TextBlock Margin="25 0 0 5" Text="Enhed" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top"/>
+                <ComboBox Command="{Binding SelectedUnit}" Margin="0 0 75 5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top"/>
                 <!-- Fith Row -->
                 <TextBlock Margin="25 0 0 5" Text="Placering" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top"/>
+                <ComboBox Command="{Binding SelectedStorage}" Margin="0 0 75 5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top"/>
                 <!-- Sixth Row -->
                 <TextBlock Margin="25 0 0 5" Text="Minimums beholdning" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
-                <TextBox Margin="0 0 75 5" Grid.Row="5" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
+                <TextBox Command="{Binding MinimumAmount}" Margin="0 0 75 5" Grid.Row="5" Grid.Column="1" Height="21" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black"/>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,0" Width="400" Height="50" VerticalAlignment="Bottom">
-                <Button Content="Anuller" Command="{Binding}" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
-                <Button Content="Gem" Command="{Binding}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
+                <Button Content="Anuller" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
+                <Button Content="Gem" Command="{Binding SaveCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
             </StackPanel>
+            <TextBlock Text="{Binding VerificationMessage}" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Red"/>
         </StackPanel>
     </Border>
 </UserControl>
