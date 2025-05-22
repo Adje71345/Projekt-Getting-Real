@@ -64,15 +64,15 @@
                     GroupName="MenuGroup" 
                     Style="{StaticResource MenuButtonStyle}" />
             <RadioButton x:Name="rbAddMaterial"
-                    Content="Tilføj materiale" 
+                    Content="Tilføj lagerbeholdning" 
                     GroupName="MenuGroup" 
                     Style="{StaticResource MenuButtonStyle}" />
             <RadioButton x:Name="rbConsumeMaterial"
-                    Content="Fjern materiale" 
+                    Content="Fjern lagerbeholdning" 
                     GroupName="MenuGroup" 
                     Style="{StaticResource MenuButtonStyle}"/>
             <RadioButton x:Name="rbMoveMaterial"
-                    Content="Flyt materiale" 
+                    Content="Flyt lagerbeholdning" 
                     GroupName="MenuGroup" 
                     Style="{StaticResource MenuButtonStyle}"/>
         </StackPanel>

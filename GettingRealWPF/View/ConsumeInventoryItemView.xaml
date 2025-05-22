@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="GettingRealWPF.View.ConsumeMaterialView"
+﻿<UserControl x:Class="GettingRealWPF.View.ConsumeInventoryItemView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
     <Border Padding="10" Opacity="0.985" Background="#FFE6E6E6">
 
         <StackPanel Background="#FFE6E6E6" Margin="0,10,0,-10">
-            <TextBlock Margin="5 10 0 40" Text="Fjern materiale" IsEnabled="False" FontSize="17" FontWeight="Bold"/>
+            <TextBlock Margin="5 10 0 40" Text="Fjern lagerbeholdning" IsEnabled="False" FontSize="17" FontWeight="Bold"/>
             <Grid Height="349">
                 <Grid.RowDefinitions>
                     <!-- First row -->
@@ -61,7 +61,7 @@
 
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,10" Width="400" Height="50">
-                <Button Content="Annuller" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
+                <Button Content="Nulstil" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
                 <Button Content="Gem" Command="{Binding ConsumeMaterialCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
             </StackPanel>
             <TextBlock Text="{Binding VerificationMessage}" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Red"/>

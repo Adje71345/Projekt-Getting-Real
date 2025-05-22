@@ -18,17 +18,17 @@ namespace GettingRealWPF.View
     /// <summary>
     /// Interaction logic for ConsumeMaterialView.xaml
     /// </summary>
-    public partial class ConsumeMaterialView : UserControl
+    public partial class ConsumeInventoryItemView : UserControl
     {
-        public ConsumeMaterialView()
+        public ConsumeInventoryItemView()
         {
             InitializeComponent();
-            DataContext = new ViewModel.ConsumeMaterialViewModel();
+            DataContext = new ViewModel.ConsumeInventoryItemViewModel();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as ConsumeMaterialViewModel;
+            var viewModel = DataContext as ConsumeInventoryItemViewModel;
             viewModel?.ClearFields();
         }
 

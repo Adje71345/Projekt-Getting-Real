@@ -66,6 +66,22 @@ namespace GettingRealWPF.Model
             }
         }
 
+        //Henter materialer fra filen og filtrerer dem efter kategori
+        public IEnumerable<Material> GetMaterialsByCategory(Material.Category category)
+        {
+            try
+            {
+                return GetAllMaterials()
+                    .Where(m => m.MaterialCategory == category)
+                    .GroupBy(m => m.Description)
+                    .Select(g => g.First());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Fejl ved filtrering af materialer efter kategori", ex);
+            }
+        }
+
         //Henter et materiale fra filen og konverterer det til et Material-objekt
         public Material? GetMaterialByDescription(string materialDescription)
         {

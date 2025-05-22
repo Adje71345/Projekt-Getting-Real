@@ -19,17 +19,17 @@ namespace GettingRealWPF.View
     /// <summary>
     /// Interaction logic for MoveMaterialView.xaml
     /// </summary>
-    public partial class MoveMaterialView : UserControl
+    public partial class MoveInventoryItemView : UserControl
     {
-        public MoveMaterialView()
+        public MoveInventoryItemView()
         {
             InitializeComponent();
-            DataContext = new ViewModel.MoveMaterialViewModel();
+            DataContext = new ViewModel.MoveInventoryItemViewModel();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as MoveMaterialViewModel; // erstat med faktisk type
+            var viewModel = DataContext as MoveInventoryItemViewModel; // erstat med faktisk type
             viewModel?.ClearFields();
         }
 
