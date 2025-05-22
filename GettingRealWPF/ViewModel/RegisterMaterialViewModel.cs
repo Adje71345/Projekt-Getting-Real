@@ -62,9 +62,11 @@ namespace GettingRealWPF.ViewModel
         private Material.Category? _selectedCategory;
         private string _selectedDescription;
         private int _selectedQuantity;
+        private string _selectedQuantityText = string.Empty;
         private Material.Unit? _selectedUnit;
         private Storage _selectedStorage;
-        private int _selectedMinimumAmount;
+        private int? _selectedMinimumAmount;
+        private string _selectedMinimumAmountText = string.Empty;
 
         // Kategori
         public Material.Category? SelectedCategory
@@ -87,6 +89,32 @@ namespace GettingRealWPF.ViewModel
             set { _selectedQuantity = value; OnPropertyChanged(nameof(SelectedQuantity)); }
         }
 
+        // Antal tekstfelt
+        public string SelectedQuantityText
+        {
+            get => _selectedQuantityText;
+            set
+            {
+                if (_selectedQuantityText != value)
+                {
+                    _selectedQuantityText = value;
+                    OnPropertyChanged(nameof(SelectedQuantityText));
+
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        SelectedQuantity = 0;
+                    }
+                    else if (int.TryParse(value, out int parsed))
+                    {
+                        SelectedQuantity = parsed;
+                    }
+                    else
+                    {
+                        SelectedQuantity = 0;
+                    }
+                }
+            }
+        }
 
         //Enhed
         public Material.Unit? SelectedUnit
@@ -103,12 +131,39 @@ namespace GettingRealWPF.ViewModel
         }
 
         // Minimumsbeholdning
-        public int SelectedMinimumAmount
+        public int? SelectedMinimumAmount
         {
             get => _selectedMinimumAmount;
             set { _selectedMinimumAmount = value; OnPropertyChanged(nameof(SelectedMinimumAmount)); }
         }
 
+        // Minimumsbeholdning tekstfelt
+        public string SelectedMinimumAmountText
+        {
+            get => _selectedMinimumAmountText;
+            set
+            {
+                if (_selectedMinimumAmountText != value)
+                {
+                    _selectedMinimumAmountText = value;
+                    OnPropertyChanged(nameof(SelectedMinimumAmountText));
+
+                    // Hvis feltet er tomt, tolkes det som 0.
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        SelectedMinimumAmount = null;
+                    }
+                    else if (int.TryParse(value, out int parsed))
+                    {
+                        SelectedMinimumAmount = parsed;
+                    }
+                    else
+                    {
+                        SelectedMinimumAmount = null;
+                    }
+                }
+            }
+        }
 
         // INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -123,7 +178,7 @@ namespace GettingRealWPF.ViewModel
                    SelectedQuantity > 0 &&
                    SelectedUnit.HasValue &&
                    SelectedStorage != null &&
-                   SelectedMinimumAmount >= 0;
+                   SelectedMinimumAmount.HasValue && SelectedMinimumAmount.Value >= 0;
         }
 
         public void RegisterMaterial()
@@ -134,7 +189,7 @@ namespace GettingRealWPF.ViewModel
                 var newMaterial = new Material(
                     SelectedCategory.Value,
                     SelectedDescription,
-                    SelectedMinimumAmount,
+                    SelectedMinimumAmount.Value,
                     SelectedUnit.Value
                 );
                 // Opret et nyt inventory item

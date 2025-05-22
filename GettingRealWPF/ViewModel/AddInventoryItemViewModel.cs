@@ -20,7 +20,7 @@ namespace GettingRealWPF.ViewModel
         public ObservableCollection<Storage> Storages { get; } = new ObservableCollection<Storage>();
 
         // Kommando til "Tilføj" knappen i UI
-        public ICommand AddCommand { get; }
+        public ICommand AddInventoryItemCommand { get; }
 
         // Valgt kategori i UI (kan være null)
         private Material.Category? _selectedCategory;
@@ -127,9 +127,35 @@ namespace GettingRealWPF.ViewModel
                 {
                     _amountToAdd = value;
                     OnPropertyChanged(nameof(AmountToAdd));
-
-                    // Beregn den nye beholdning ved ændring i tilføjet antal
                     RecalculateUpdatedAmount();
+                }
+            }
+        }
+        // Tekstfelt til at indtaste antal materialer, der skal tilføjes
+        private string _amountToAddText;
+        public string AmountToAddText
+        {
+            get => _amountToAddText;
+            set
+            {
+                if (_amountToAddText != value)
+                {
+                    _amountToAddText = value;
+                    OnPropertyChanged(nameof(AmountToAddText));
+
+                    // Når feltet er tomt, tolkes det som 0.
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        AmountToAdd = 0;
+                    }
+                    else if (int.TryParse(value, out int parsed))
+                    {
+                        AmountToAdd = parsed;
+                    }
+                    else
+                    {
+                        AmountToAdd = 0;
+                    }
                 }
             }
         }
@@ -180,7 +206,7 @@ namespace GettingRealWPF.ViewModel
             LoadInitialData();
 
             // Initialiser kommandoen til "Tilføj" knappen
-            AddCommand = new RelayCommand(AddMaterial, CanAddMaterial);
+            AddInventoryItemCommand = new RelayCommand(AddInventoryItem, CanAddInventoryItem);
         }
 
         // Hent data til dropdowns (kategori, materiale, lager)
@@ -213,16 +239,9 @@ namespace GettingRealWPF.ViewModel
             if (SelectedCategory == null)
                 return;
 
-            var inventoryItems = _inventoryItemRepository.GetAllInventoryItems();
+            var allMaterialsInCategory = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
 
-            var uniqueMaterials = inventoryItems
-                .Where(item => item.Material.MaterialCategory == SelectedCategory)
-                .Select(item => item.Material)
-                .GroupBy(m => m.Description)
-                .Select(g => g.First())
-                .ToList();
-
-            foreach (var material in uniqueMaterials)
+            foreach (var material in allMaterialsInCategory)
             {
                 Materials.Add(material);
             }
@@ -250,16 +269,16 @@ namespace GettingRealWPF.ViewModel
         }
 
         // Metode der kaldes når "Tilføj" knappen trykkes
-        private void AddMaterial()
+        private void AddInventoryItem()
         {
-            // Tjek at der er valgt materiale og lager
-            if (SelectedInventoryItem == null)
+            // Tjek at både SelectedMaterial og SelectedStorage er valgt
+            if (SelectedMaterial == null || SelectedStorage == null)
             {
                 StatusMessage = "Vælg materiale og lager.";
                 return;
             }
 
-            // Tjek at antal der skal tilføjes er gyldigt (>0)
+            // Tjek at antal der skal tilføjes er gyldigt (> 0)
             if (AmountToAdd <= 0)
             {
                 StatusMessage = "Indtast et gyldigt antal at tilføje.";
@@ -268,28 +287,24 @@ namespace GettingRealWPF.ViewModel
 
             try
             {
-                // Opdater lagerbeholdning via repository
-                _inventoryItemRepository.IncreaseAmount(
-                    SelectedInventoryItem.Material.Description,
-                    SelectedInventoryItem.Storage.StorageName,
-                    AmountToAdd);
+                var newItem = new InventoryItem(SelectedMaterial, AmountToAdd, SelectedStorage);
+                _inventoryItemRepository.AddInventoryItem(newItem);
 
-                // Opdater SelectedInventoryItem efter ændringen
+                // Hent og opdater SelectedInventoryItem efter ændringen
                 SelectedInventoryItem = _inventoryItemRepository.GetInventoryItem(
-                    SelectedInventoryItem.Material.Description,
-                    SelectedInventoryItem.Storage.StorageName);
+                    SelectedMaterial.Description,
+                    SelectedStorage.StorageName);
 
                 StatusMessage = "Materiale tilføjet og beholdning opdateret.";
                 ClearFields();
             }
             catch (Exception ex)
             {
-                // Vis fejlbesked i UI
                 StatusMessage = $"Fejl: {ex.Message}";
             }
         }
 
-        private bool CanAddMaterial()
+        private bool CanAddInventoryItem()
         {
             return SelectedMaterial != null && SelectedStorage != null && AmountToAdd > 0;
         }
@@ -305,7 +320,7 @@ namespace GettingRealWPF.ViewModel
         public void ClearFields()
         {
             
-            AmountToAdd = 0;
+            AmountToAddText = null;
             CurrentAmount = 0;
             UpdatedAmount = 0;
 
@@ -317,6 +332,5 @@ namespace GettingRealWPF.ViewModel
            
             SelectedCategory = null;
         }
-    }
-    
+    }    
 }

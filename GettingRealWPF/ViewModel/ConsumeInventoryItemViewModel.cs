@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using GettingRealWPF.Model;
@@ -34,21 +35,21 @@ namespace GettingRealWPF.ViewModel
             LoadInitialData();
 
             //Initialiser RelayCommand til at gemme
-            ConsumeMaterialCommand = new RelayCommand(ConsumeMaterial, CanConsumeMaterial);
+            ConsumeInventoryItemCommand = new RelayCommand(ConsumeInventoryItem, CanConsumeInventoryItem);
         }
 
         //ObservableCollections til at holde styr på valgte elementer
-        public ObservableCollection<Material.Category> Categories { get; }
-            = new ObservableCollection<Material.Category>();
-        public ObservableCollection<Material> Materials { get; }
-            = new ObservableCollection<Material>();
-        public ObservableCollection<Storage> Storages { get; }
-            = new ObservableCollection<Storage>();
-        public ObservableCollection<InventoryItem> InventoryItems { get; }
-            = new ObservableCollection<InventoryItem>();
+        public ObservableCollection<Material.Category> Categories { get; } = new ObservableCollection<Material.Category>();
+        public ObservableCollection<Material> Materials { get; } = new ObservableCollection<Material>();
+        public ObservableCollection<Storage> Storages { get; } = new ObservableCollection<Storage>();
+        public ObservableCollection<InventoryItem> InventoryItems { get; } = new ObservableCollection<InventoryItem>();
+        private ICollectionView _availableMaterialsView;
+        public ICollectionView AvailableMaterialsView
+        {
+            get => _availableMaterialsView;
+        }
 
-
-        //Valgte elementer i comboboxes
+        //Valgte elementer i UI
         private Material.Category? _selectedCategory;
         public Material.Category? SelectedCategory
         {
@@ -59,7 +60,7 @@ namespace GettingRealWPF.ViewModel
                 {
                     _selectedCategory = value;
                     OnPropertyChanged(nameof(SelectedCategory));
-                    FilterMaterialsByCategory();
+                    _availableMaterialsView.Refresh();
                     UpdateSelectedInventoryItem();
                 }
             }
@@ -96,6 +97,9 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
+        public string SelectedUnitDisplay => SelectedMaterial?.MaterialUnit.ToString() ?? string.Empty;
+
+
         private InventoryItem _selectedInventoryItem;
         public InventoryItem SelectedInventoryItem
         {
@@ -119,13 +123,7 @@ namespace GettingRealWPF.ViewModel
                 {
                     _currentAmount = value;
                     OnPropertyChanged(nameof(CurrentAmount));
-
-                    int clampedAmount = GetClampedAmountToConsume(AmountToConsume);
-                    if (_amountToConsume != clampedAmount)
-                    {
-                        _amountToConsume = clampedAmount;
-                        OnPropertyChanged(nameof(AmountToConsume));
-                    }
+                    CommandManager.InvalidateRequerySuggested();
                     RecalculateUpdatedAmount();
                 }
             }
@@ -137,11 +135,11 @@ namespace GettingRealWPF.ViewModel
             get => _amountToConsume;
             set
             {
-                int clampedValue = GetClampedAmountToConsume(value);
-                if (_amountToConsume != clampedValue)
+                if (_amountToConsume != value)
                 {
-                    _amountToConsume = clampedValue;
+                    _amountToConsume = value;
                     OnPropertyChanged(nameof(AmountToConsume));
+                    CommandManager.InvalidateRequerySuggested();
                 }
                 RecalculateUpdatedAmount();
             }
@@ -203,12 +201,10 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
-        //Computed Properties til at vise den valgte enhed i UI'en
-        public string SelectedUnitDisplay => SelectedMaterial?.MaterialUnit.ToString() ?? string.Empty;
 
         //Commands
-        public ICommand ConsumeMaterialCommand { get; }
-        private bool CanConsumeMaterial()
+        public ICommand ConsumeInventoryItemCommand { get; }
+        private bool CanConsumeInventoryItem()
         {
             return SelectedInventoryItem != null && AmountToConsume > 0 && AmountToConsume <= CurrentAmount;
         }
@@ -222,20 +218,32 @@ namespace GettingRealWPF.ViewModel
 
             Categories.Clear();
             foreach (var cat in InventoryItems.Select(i => i.Material.MaterialCategory).Distinct()) Categories.Add(cat);
+            InitializeMaterialsView();
         }
 
-        private void FilterMaterialsByCategory()
+        private void InitializeMaterialsView()
         {
-            Materials.Clear();
+            _availableMaterialsView = CollectionViewSource.GetDefaultView(Materials);
+            _availableMaterialsView.Filter = obj =>
+            {
+                if (obj is Material material)
+                {
+                    // Hvis en kategori er valgt, så sikre, at materialet tilhører denne kategori
+                    if (SelectedCategory != null && material.MaterialCategory != SelectedCategory)
+                        return false;
 
-            if (SelectedCategory == null) return; // Sikrer, at kategorien er valgt
+                    // Saml mængden for dette materiale på tværs af alle lagre.
+                    var totalAmount = _inventoryItemRepository
+                                        .GetAllInventoryItems()
+                                        .Where(i => i.Material.Description.Equals(material.Description, StringComparison.OrdinalIgnoreCase))
+                                        .Sum(i => i.Amount);
 
-            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
-
-            foreach (var m in filteredMaterials)
-                Materials.Add(m);
+                    // Vis materialet, hvis den samlede mængde er større end 0.
+                    return totalAmount > 0;
+                }
+                return false;
+            };
         }
-
 
         private void UpdateSelectedInventoryItem()
         {
@@ -254,17 +262,10 @@ namespace GettingRealWPF.ViewModel
             UpdatedAmount = CurrentAmount - AmountToConsume;
         }
 
-        private int GetClampedAmountToConsume(int value)
-        {
-            return Math.Max(0, Math.Min(value, CurrentAmount));
-        }
-
-        public void ConsumeMaterial()
+        public void ConsumeInventoryItem()
         {
             if (SelectedInventoryItem == null)
                 return;
-
-            int clampedAmount = GetClampedAmountToConsume(AmountToConsume);
 
             try
             {
@@ -274,19 +275,29 @@ namespace GettingRealWPF.ViewModel
                     AmountToConsume);
 
                 // Hent det opdaterede inventory item
-                SelectedInventoryItem = _inventoryItemRepository.GetInventoryItem(
+                var updatedItem = _inventoryItemRepository.GetInventoryItem(
                     SelectedInventoryItem.Material.Description,
                     SelectedInventoryItem.Storage.StorageName);
 
-                // Opdater den aktuelle mængde
-                CurrentAmount = SelectedInventoryItem?.Amount ?? 0;
+                if (updatedItem == null)
+                {
+                    // Hvis item er blevet slettet, opdater CurrentAmount og SelectedInventoryItem
+                    CurrentAmount = 0;
+                    SelectedInventoryItem = null;
+                }
+                else
+                {
+                    SelectedInventoryItem = updatedItem;
+                    CurrentAmount = updatedItem.Amount;
+                }
 
                 VerificationMessage = $"{AmountToConsume} {SelectedUnitDisplay} {SelectedMaterial.Description} fjernet. Ny beholdning: {CurrentAmount} {SelectedUnitDisplay}.";
 
-                // Nulstil AmountToConsume og opdater den beregnede nye mængde
+                // Nulstil forbruget
                 AmountToConsume = 0;
                 AmountToConsumeText = string.Empty;
                 RecalculateUpdatedAmount();
+                ClearFields();
             }
             catch (Exception ex)
             {

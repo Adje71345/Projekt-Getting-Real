@@ -29,7 +29,7 @@ namespace GettingRealWPF.ViewModel
             _storageRepository = storageRepository;
 
             //Initialiser RelayCommand til at gemme
-            MoveMaterialCommand = new RelayCommand(MoveMaterial, CanMoveMaterial);
+            MoveInventoryItemCommand = new RelayCommand(MoveInventoryItem, CanMoveInventoryItem);
 
             LoadInitialData();
         }
@@ -138,6 +138,33 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
+        private string _moveAmountText;
+        public string MoveAmountText
+        {
+            get => _moveAmountText;
+            set
+            {
+                if (_moveAmountText != value)
+                {
+                    _moveAmountText = value;
+                    OnPropertyChanged(nameof(MoveAmountText));
+
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        MoveAmount = 0;
+                    }
+                    else if (int.TryParse(value, out int parsed))
+                    {
+                        MoveAmount = parsed;
+                    }
+                    else
+                    {
+                        MoveAmount = 0;
+                    }
+                }
+            }
+        }
+
         private string _verificationMessage;
         public string VerificationMessage
         {
@@ -172,9 +199,9 @@ namespace GettingRealWPF.ViewModel
 
 
         //RelayCommand til at flytte materialer
-        public ICommand MoveMaterialCommand { get; }
+        public ICommand MoveInventoryItemCommand { get; }
 
-        private bool CanMoveMaterial()
+        private bool CanMoveInventoryItem()
         {
             return SelectedInventoryItem != null &&
                    MoveAmount > 0 &&
@@ -184,7 +211,7 @@ namespace GettingRealWPF.ViewModel
                    SelectedFromLocation != SelectedToLocation;
         }
 
-        private void MoveMaterial()
+        private void MoveInventoryItem()
         {
             try
             {
@@ -196,13 +223,13 @@ namespace GettingRealWPF.ViewModel
                 if (inventoryItem == null)
                 {
                     VerificationMessage = $"Fejl: InventoryItem med materiale '{SelectedMaterial.Description}' på '{SelectedFromLocation.StorageName}' blev ikke fundet.";
-                    return; // Stopper funktionen uden at crashe
+                    return;
                 }
 
                 if (MoveAmount > inventoryItem.Amount)
                 {
                     VerificationMessage = "Fejl: Flyttemængden overstiger den tilgængelige mængde.";
-                    return; // Stopper funktionen uden at forsøge at flytte
+                    return;
                 }
 
                 // Flyt materialet fra "fra"-location til "til"-location
@@ -248,10 +275,18 @@ namespace GettingRealWPF.ViewModel
 
             if (SelectedCategory == null) return;
 
-            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
+            // Hent alle materialer inden for den valgte kategori
+            var allMaterialsInCategory = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
 
-            foreach (var m in filteredMaterials)
-                Materials.Add(m);
+            // Filtrér materialer, så kun de med en positiv lagerbeholdning vises
+            var materialsInStock = allMaterialsInCategory
+                .Where(m => _inventoryItemRepository.GetAllInventoryItems()
+                    .Any(i => i.Material.Description.Equals(m.Description, StringComparison.OrdinalIgnoreCase) && i.Amount > 0));
+
+            foreach (var material in materialsInStock)
+            {
+                Materials.Add(material);
+            }
         }
 
         private void UpdateSelectedInventoryItem()
@@ -284,7 +319,7 @@ namespace GettingRealWPF.ViewModel
             SelectedMaterial = null;
             SelectedFromLocation = null;
             SelectedToLocation = null;
-            MoveAmount = 0;
+            MoveAmountText = null;
             SelectedInventoryItem = null;
         }
 
