@@ -18,19 +18,6 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<Storage> GetAllStorages()
         {
-            // Hvis filen ikke findes eller er tom, brug mock-data
-            if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
-            {
-                var mockRepo = new MockInventoryItemRepository();
-                var mockStorages = mockRepo.GetAllInventoryItems()
-                                           .Select(i => i.Storage) // Henter Storage-objekterne
-                                           .Distinct() // Sørger for, at der ikke er dubletter
-                                           .ToList();
-
-                // Skriv mock-data til filen
-                SaveStoragesToFile(mockStorages);
-            }
-
             try
             {
                 return File.ReadLines(Filepath)
@@ -108,7 +95,7 @@ namespace GettingRealWPF.Model
                 if (index != -1)
                 {
                     storages[index] = storage;
-                    File.WriteAllLines(Filepath, storages.Select(s => s.ToString()));
+                    SaveStoragesToFile(storages);
                 }
             }
             catch (IOException ioEx) // IO-undtagelser
@@ -131,7 +118,7 @@ namespace GettingRealWPF.Model
                 if (index != -1)
                 {
                     storages.RemoveAt(index);
-                    File.WriteAllLines(Filepath, storages.Select(s => s.ToString()));
+                    SaveStoragesToFile(storages);
                 }
             }
             catch (IOException ioEx) // IO-undtagelser

@@ -9,9 +9,21 @@
 	<ItemGroup>
 		<None Remove="Images\Pro-stål logo.png" />
 		<None Remove="Images\ProStaal.png" />
+		<None Remove="inventoryitems.txt" />
+		<None Remove="materials.txt" />
+		<None Remove="storages.txt" />
 		<None Remove="users.txt" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="inventoryitems.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="materials.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="storages.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="users.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

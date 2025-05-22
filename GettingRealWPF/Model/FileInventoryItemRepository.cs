@@ -16,16 +16,6 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<InventoryItem> GetAllInventoryItems()
         {
-            // Hvis filen ikke findes eller er tom, brug mock-data
-            if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
-            {
-                var mockRepo = new MockInventoryItemRepository();
-                var mockItems = mockRepo.GetAllInventoryItems().ToList();
-
-                // Skriv mock-items til filen, så den bliver initialiseret
-                SaveInventoryItemsToFile(mockItems);
-            }
-
             try
             {
                 return File.ReadLines(Filepath)

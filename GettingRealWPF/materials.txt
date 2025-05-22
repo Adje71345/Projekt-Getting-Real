@@ -1,0 +1,59 @@
+Svejsning,6010 elektroder 2.5mm,0,Pakker
+Svejsning,6011 elektroder 3.2mm,0,Pakker
+Svejsning,7018 elektroder 2.5mm,0,Pakker
+Svejsning,7024 elektroder 4.0mm,0,Pakker
+Svejsning,MIG tråd 1.00 mmStål,0,Ruller
+Svejsning,MIG tråd 1.2 mmStål,0,Ruller
+Svejsning,MIG tråd 0.8 mmRustfri,0,Ruller
+Svejsning,MIG tråd 1.0 mmAluminium,0,Ruller
+Svejsning,Rør tråd 1.2mm,0,Ruller
+Svejsning,TIG tråd 1.6mm Stål,0,Pakker
+Svejsning,TIG tråd 2.4mm Rustfri,0,Pakker
+Svejsning,TIG tråd 3.2mm Aluminium,0,Pakker
+Svejsning,Massiv tråd,0,Ruller
+Stål,Stålplade 2mm,0,Plader
+Stål,Stålplade 4mm,0,Plader
+Stål,Stålplade 6mm,0,Plader
+Stål, Rustfri stålplade 2mm,0,Plader
+Stål,Vinkeljern 30x30x3mm,0,Længder
+Stål,Vinkeljern 40x40x4mm,3,Længder
+Stål,Fladjern 30x5 mm,0,Længder
+Stål,Firkant profil 40x40mm,0,Længder
+Stål,Rustfri rør ø50x5mm,0,Længder
+Stål,Aluminiumsplade 2 mm,0,Plader
+Stål,Aluminiumsprofil 40x40x4mm,0,Længder
+Befæstelse,Bolte M8x50,0,Pakker
+Befæstelse,Bolte M10x50,0,Pakker
+Befæstelse,Bolte M12x50,0,Pakker
+Befæstelse,Bolte M16x50,0,Pakker
+Befæstelse,Bolte M24x50,0,Pakker
+Befæstelse,Møtrikker M8,0,Pakker
+Befæstelse,Møtrikker M10,0,Pakker
+Befæstelse,Møtrikker M12,0,Pakker
+Befæstelse,Møtrikker M16,0,Pakker
+Befæstelse,Møtrikker M24,0,Pakker
+Befæstelse,Skiver M8,0,Pakker
+Befæstelse,Skiver M10,0,Pakker
+Befæstelse,Skiver M12,0,Pakker
+Befæstelse,Skiver M16,0,Pakker
+Befæstelse,Skiver M24,0,Pakker
+Befæstelse,Skruer M8x50,0,Pakker
+Befæstelse,Blindnitter Alu/Rustfri ø4x24mm,0,Pakker
+Befæstelse,Blindnitter Kobber/Alu ø3.2x12mm,0,Pakker
+Befæstelse,Blindnitter Alu/Kobber ø4x36mm,0,Pakker
+Befæstelse,Skrubskiver 125mm,0,Stk
+Befæstelse,Skrubskiver 150mm,0,Stk
+Befæstelse,Skæreskiver 125mm,0,Stk
+Befæstelse,Skæreskiver 150mm,0,Stk
+Slibning,Stålbørste til vinkelsliber,0,Stk
+Slibning,Lamelpudseskiver 125mm,0,Stk
+Gas,Argon,3,Flasker
+Gas,CO2,3,Flasker
+Gas,Acetylen,3,Flasker
+Gas,Oxygen,3,Flasker
+Gas,Propan,3,Flasker
+Sikkerhed,Svejsehandsker,0,Par
+Sikkerhed,Svejsebriller,0,Stk
+Sikkerhed,Filtre til åndedrætsværn,0,Stk
+Sikkerhed,Svejseglas til hjelme,0,Stk
+Sikkerhed,Arbejdshandsker,0,Par

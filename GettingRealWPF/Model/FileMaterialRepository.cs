@@ -17,19 +17,6 @@ namespace GettingRealWPF.Model
 
         public IEnumerable<Material> GetAllMaterials()
         {
-            // Hvis filen ikke findes eller er tom, brug mock-data fra MockInventoryItemRepository
-            if (!File.Exists(Filepath) || !File.ReadLines(Filepath).Any())
-            {
-                var mockRepo = new MockInventoryItemRepository();
-                var mockMaterials = mockRepo.GetAllInventoryItems()
-                                            .Select(i => i.Material) // Henter Material-objekterne
-                                            .Distinct() // Fjerner dubletter
-                                            .ToList();
-
-                // Skriv mock-data til filen
-                SaveMaterialsToFile(mockMaterials);
-            }
-
             try
             {
                 return File.ReadLines(Filepath)
@@ -123,7 +110,7 @@ namespace GettingRealWPF.Model
                 if (index != -1)
                 {
                     materials[index] = material;
-                    File.WriteAllLines(Filepath, materials.Select(m => m.ToString()));
+                    SaveMaterialsToFile(materials);
                 }
             }
             catch (IOException ioEx) // IO-undtagelser
@@ -148,7 +135,7 @@ namespace GettingRealWPF.Model
                 if (index != -1)
                 {
                     materials.RemoveAt(index);
-                    File.WriteAllLines(Filepath, materials.Select(m => m.ToString()));
+                    SaveMaterialsToFile(materials);
                 }
             }
             catch (IOException ioEx) // IO-undtagelser

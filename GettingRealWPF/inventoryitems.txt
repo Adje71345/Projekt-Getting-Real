@@ -1,0 +1,107 @@
+Svejsning,6010 elektroder 2.5mm,0,Pakker,12,Hovedlager
+Svejsning,6011 elektroder 3.2mm,0,Pakker,7,Hovedlager
+Svejsning,7018 elektroder 2.5mm,0,Pakker,9,Hovedlager
+Svejsning,7024 elektroder 4.0mm,0,Pakker,5,Hovedlager
+Svejsning,MIG tråd 1.00 mmStål,0,Ruller,3,Hovedlager
+Svejsning,MIG tråd 1.2 mmStål,0,Ruller,2,Hovedlager
+Svejsning,MIG tråd 0.8 mmRustfri,0,Ruller,4,Hovedlager
+Svejsning,MIG tråd 1.0 mmAluminium,0,Ruller,1,Hovedlager
+Svejsning,Rør tråd 1.2mm,0,Ruller,6,Hovedlager
+Svejsning,TIG tråd 1.6mm Stål,0,Pakker,8,Hovedlager
+Svejsning,TIG tråd 2.4mm Rustfri,0,Pakker,10,Hovedlager
+Svejsning,TIG tråd 3.2mm Aluminium,0,Pakker,11,Hovedlager
+Svejsning,Massiv tråd,0,Ruller,13,Hovedlager
+Stål,Stålplade 2mm,0,Plader,7,Hovedlager
+Stål,Stålplade 4mm,0,Plader,4,Hovedlager
+Stål,Stålplade 6mm,0,Plader,3,Hovedlager
+Stål, Rustfri stålplade 2mm,0,Plader,5,Hovedlager
+Stål,Vinkeljern 30x30x3mm,0,Længder,2,Hovedlager
+Stål,Vinkeljern 40x40x4mm,3,Længder,1,Hovedlager
+Stål,Fladjern 30x5 mm,0,Længder,8,Hovedlager
+Stål,Firkant profil 40x40mm,0,Længder,6,Hovedlager
+Stål,Rustfri rør ø50x5mm,0,Længder,9,Hovedlager
+Stål,Aluminiumsplade 2 mm,0,Plader,12,Hovedlager
+Stål,Aluminiumsprofil 40x40x4mm,0,Længder,7,Hovedlager
+Befæstelse,Bolte M8x50,0,Pakker,10,Hovedlager
+Befæstelse,Bolte M10x50,0,Pakker,5,Hovedlager
+Befæstelse,Bolte M12x50,0,Pakker,3,Hovedlager
+Befæstelse,Bolte M16x50,0,Pakker,2,Hovedlager
+Befæstelse,Bolte M24x50,0,Pakker,1,Hovedlager
+Befæstelse,Møtrikker M8,0,Pakker,8,Hovedlager
+Befæstelse,Møtrikker M10,0,Pakker,6,Hovedlager
+Befæstelse,Møtrikker M12,0,Pakker,4,Hovedlager
+Befæstelse,Møtrikker M16,0,Pakker,2,Hovedlager
+Befæstelse,Møtrikker M24,0,Pakker,1,Hovedlager
+Befæstelse,Skiver M8,0,Pakker,8,Hovedlager
+Befæstelse,Skiver M10,0,Pakker,6,Hovedlager
+Befæstelse,Skiver M12,0,Pakker,4,Hovedlager
+Befæstelse,Skiver M16,0,Pakker,2,Hovedlager
+Befæstelse,Skiver M24,0,Pakker,1,Hovedlager
+Befæstelse,Skruer M8x50,0,Pakker,8,Hovedlager
+Befæstelse,Blindnitter Alu/Rustfri ø4x24mm,0,Pakker,6,Hovedlager
+Befæstelse,Blindnitter Kobber/Alu ø3.2x12mm,0,Pakker,4,Hovedlager
+Befæstelse,Blindnitter Alu/Kobber ø4x36mm,0,Pakker,2,Hovedlager
+Befæstelse,Skrubskiver 125mm,0,Stk,8,Hovedlager
+Befæstelse,Skrubskiver 150mm,0,Stk,6,Hovedlager
+Befæstelse,Skæreskiver 125mm,0,Stk,4,Hovedlager
+Befæstelse,Skæreskiver 150mm,0,Stk,2,Hovedlager
+Slibning,Stålbørste til vinkelsliber,0,Stk,1,Hovedlager
+Slibning,Lamelpudseskiver 125mm,0,Stk,8,Hovedlager
+Gas,Argon,3,Flasker,6,Hovedlager
+Gas,CO2,3,Flasker,4,Hovedlager
+Gas,Acetylen,3,Flasker,6,Hovedlager
+Gas,Oxygen,3,Flasker,4,Hovedlager
+Gas,Propan,3,Flasker,8,Hovedlager
+Sikkerhed,Svejsehandsker,0,Par,6,Hovedlager
+Sikkerhed,Svejsebriller,0,Stk,4,Hovedlager
+Sikkerhed,Filtre til åndedrætsværn,0,Stk,6,Hovedlager
+Sikkerhed,Svejseglas til hjelme,0,Stk,4,Hovedlager
+Sikkerhed,Arbejdshandsker,0,Par,8,Hovedlager
+Svejsning,6010 elektroder 2.5mm,0,Pakker,12,Bil - David
+Svejsning,6011 elektroder 3.2mm,0,Pakker,7,Bil - David
+Befæstelse,Møtrikker M24,0,Pakker,1,Bil - David
+Sikkerhed,Arbejdshandsker,0,Par,1,Bil - David
+Befæstelse,Skæreskiver 150mm,0,Stk,1,Bil - David
+Slibning,Stålbørste til vinkelsliber,0,Stk,1,Bil - David
+Slibning,Lamelpudseskiver 125mm,0,Stk,1,Bil - David
+Gas,Argon,3,Flasker,1,Bil - David
+Gas,CO2,3,Flasker,1,Bil - David
+Befæstelse,Skrubskiver 150mm,0,Stk,1,Bil - David
+Svejsning,TIG tråd 1.6mm Stål,0,Pakker,1,Bil - David
+Svejsning,MIG tråd 1.00 mmStål,0,Ruller,1,Bil - David
+Svejsning,MIG tråd 1.2 mmStål,0,Ruller,1,Bil - David
+Svejsning,MIG tråd 0.8 mmRustfri,0,Ruller,1,Bil - David
+Svejsning,MIG tråd 1.0 mmAluminium,0,Ruller,1,Bil - David
+Svejsning,Rør tråd 1.2mm,0,Ruller,1,Bil - David
+Svejsning,TIG tråd 2.4mm Rustfri,0,Pakker,1,Bil - David
+Svejsning,MIG tråd 1.2 mmStål,0,Ruller,1,Bil - Martin
+Svejsning,MIG tråd 0.8 mmRustfri,0,Ruller,1,Bil - Martin
+Svejsning,MIG tråd 1.0 mmAluminium,0,Ruller,1,Bil - Martin
+Svejsning,Rør tråd 1.2mm,0,Ruller,1,Bil - Martin
+Svejsning,TIG tråd 2.4mm Rustfri,0,Pakker,1,Bil - Martin
+Svejsning,6010 elektroder 2.5mm,0,Pakker,1,Bil - Martin
+Svejsning,6011 elektroder 3.2mm,0,Pakker,1,Bil - Martin
+Svejsning,7018 elektroder 2.5mm,0,Pakker,1,Bil - Martin
+Svejsning,7024 elektroder 4.0mm,0,Pakker,1,Bil - Martin
+Befæstelse,Skrubskiver 125mm,0,Stk,1,Bil - Martin
+Befæstelse,Skæreskiver 125mm,0,Stk,1,Bil - Martin
+Befæstelse,Skæreskiver 150mm,0,Stk,1,Bil - Martin
+Befæstelse,Møtrikker M16,0,Pakker,1,Bil - Martin
+Sikkerhed,Arbejdshandsker,0,Par,1,Bil - Martin
+Befæstelse,Skrubskiver 150mm,0,Stk,1,Bil - Martin
+Slibning,Stålbørste til vinkelsliber,0,Stk,1,Bil - Martin
+Slibning,Lamelpudseskiver 125mm,0,Stk,1,Bil - Martin
+Svejsning,MIG tråd 1.00 mmStål,0,Ruller,1,Bil - Mads
+Svejsning,MIG tråd 1.2 mmStål,0,Ruller,1,Bil - Mads
+Svejsning,7018 elektroder 2.5mm,0,Pakker,1,Bil - Mads
+Svejsning,7024 elektroder 4.0mm,0,Pakker,1,Bil - Mads
+Svejsning,TIG tråd 1.6mm Stål,0,Pakker,1,Bil - Mads
+Sikkerhed,Arbejdshandsker,0,Par,1,Bil - Mads
+Befæstelse,Skrubskiver 125mm,0,Stk,1,Bil - Mads
+Sikkerhed,Svejsebriller,0,Stk,1,Bil - Mads
+Sikkerhed,Filtre til åndedrætsværn,0,Stk,1,Bil - Mads
+Sikkerhed,Svejseglas til hjelme,0,Stk,1,Bil - Mads
+Befæstelse,Skrubskiver 150mm,0,Stk,1,Bil - Mads
+Befæstelse,Skæreskiver 125mm,0,Stk,1,Bil - Mads
+Befæstelse,Skæreskiver 150mm,0,Stk,1,Bil - Mads
+Befæstelse,Møtrikker M24,0,Pakker,1,Bil - Mads
