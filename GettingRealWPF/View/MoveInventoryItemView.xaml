@@ -50,12 +50,12 @@
                 <ComboBox Margin="0 0 75 5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding AvailableToLocations}" SelectedItem="{Binding SelectedToLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
                 <!-- Sixth Row -->
                 <TextBlock Margin="25 0 0 5" Text="Antal at flytte" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
-                <TextBox Margin="0,0,0,5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top" Text="{Binding MoveAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0,0,0,5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top" Text="{Binding MoveAmountText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="0,0,500,5" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,0" Width="400" Height="50" VerticalAlignment="Bottom">
                 <Button Content="Nulstil" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
-                <Button Content="Flyt" Command="{Binding MoveMaterialCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
+                <Button Content="Flyt" Command="{Binding MoveInventoryItemCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
             </StackPanel>
             <TextBlock Text="{Binding VerificationMessage}" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Red"/>
         </StackPanel>

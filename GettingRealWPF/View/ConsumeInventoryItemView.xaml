@@ -38,7 +38,7 @@
                 <ComboBox Margin="0 0 75 5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"/>
                 <!-- Second Row -->
                 <TextBlock Margin="25 0 0 5" Text="Materiale" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Materials}" SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}" DisplayMemberPath="Description"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding AvailableMaterialsView}" SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}" DisplayMemberPath="Description"/>
                 <!-- Third Row -->
                 <TextBlock Margin="25 0 0 5" Text="Placering" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
                 <ComboBox Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedStorage, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
@@ -62,7 +62,7 @@
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,10" Width="400" Height="50">
                 <Button Content="Nulstil" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
-                <Button Content="Gem" Command="{Binding ConsumeMaterialCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
+                <Button Content="Gem" Command="{Binding ConsumeInventoryItemCommand}" Background="White" Margin="10 0 0 0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black"/>
             </StackPanel>
             <TextBlock Text="{Binding VerificationMessage}" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Foreground="Red"/>
         </StackPanel>

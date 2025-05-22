@@ -41,25 +41,33 @@ namespace GettingRealWPF.Model
 
         public void AddInventoryItem(InventoryItem inventoryItem)
         {
-            if (GetInventoryItem(inventoryItem.Material.Description, inventoryItem.Storage.StorageName) != null)
-                throw new ArgumentException($"InventoryItem with material {inventoryItem.Material.Description} and location {inventoryItem.Storage.StorageName} already exists.");
+            var existingItem = GetInventoryItem(inventoryItem.Material.Description, inventoryItem.Storage.StorageName);
 
-            try
+            if (existingItem != null)
             {
-                using (StreamWriter sw = new StreamWriter(Filepath, true))
+                existingItem.Amount += inventoryItem.Amount;
+                UpdateInventoryItem(existingItem);
+            }
+            else
+            {
+                try
                 {
-                    sw.WriteLine(inventoryItem.ToString());
+                    using (StreamWriter sw = new StreamWriter(Filepath, true))
+                    {
+                        sw.WriteLine(inventoryItem.ToString());
+                    }
+                }
+                catch (IOException ioEx)
+                {
+                    throw new Exception("IO error writing materials to file", ioEx);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error writing materials to file", ex);
                 }
             }
-            catch (IOException ioEx)
-            {
-                throw new Exception("IO error writing materials to file", ioEx);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error writing materials to file", ex);
-            }
         }
+
 
         private void SaveInventoryItemsToFile(IEnumerable<InventoryItem> items)
         {
@@ -129,25 +137,52 @@ namespace GettingRealWPF.Model
             if (existingItem == null)
                 throw new ArgumentException($"InventoryItem with material {materialDescription} and location {location} does not exist.");
 
-            existingItem.Amount = Math.Max(0, existingItem.Amount - amount);
-            UpdateInventoryItem(existingItem);
+            int newAmount = existingItem.Amount - amount;
+
+            if (newAmount <= 0)
+            {
+                DeleteInventoryItem(materialDescription, location);
+            }
+            else
+            {
+                existingItem.Amount = newAmount;
+                UpdateInventoryItem(existingItem);
+            }
         }
 
-        private void MoveFullInventoryItem(string materialDescription, string currentLocation, string newLocation)
+        public void MoveFullInventoryItem(string materialDescription, string currentLocation, string newLocation)
         {
-            var existingItem = GetInventoryItem(materialDescription, currentLocation);
-            if (existingItem == null)
+            var existingSourceItem = GetInventoryItem(materialDescription, currentLocation);
+            if (existingSourceItem == null)
                 throw new ArgumentException($"InventoryItem with material {materialDescription} and location {currentLocation} does not exist.");
 
-            // Opret ny Storage og det opdaterede inventory-item
-            var newStorage = new Storage(newLocation);
-            var updatedItem = new InventoryItem(existingItem.Material, existingItem.Amount, newStorage);
+            // Hent om nødvendigt et eksisterende inventory item på destinationen
+            var existingTargetItem = GetInventoryItem(materialDescription, newLocation);
 
             var allItems = GetAllInventoryItems().ToList();
+
+            // Fjern inventory item’et fra den aktuelle lokation
             allItems.RemoveAll(item =>
                 item.Material.Description.Equals(materialDescription, StringComparison.OrdinalIgnoreCase) &&
                 item.Storage.StorageName.Equals(currentLocation, StringComparison.OrdinalIgnoreCase));
-            allItems.Add(updatedItem);
+            // Tilføj det til den nye lokation
+            if (existingTargetItem != null)
+            {
+                existingTargetItem.Amount += existingSourceItem.Amount;
+
+                allItems.RemoveAll(item =>
+                    item.Material.Description.Equals(materialDescription, StringComparison.OrdinalIgnoreCase) &&
+                    item.Storage.StorageName.Equals(newLocation, StringComparison.OrdinalIgnoreCase));
+
+                allItems.Add(existingTargetItem);
+            }
+            else
+            {
+                // Opret ny Storage og inventory-item for destinationen, hvis der ikke allerede findes et.
+                var newStorage = new Storage(newLocation);
+                var updatedItem = new InventoryItem(existingSourceItem.Material, existingSourceItem.Amount, newStorage);
+                allItems.Add(updatedItem);
+            }
 
             SaveInventoryItemsToFile(allItems);
         }
