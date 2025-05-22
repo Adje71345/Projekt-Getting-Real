@@ -6,10 +6,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Margin="0,5,10,10">
-        <DataGrid x:Name="dgMaterials" 
+    <Grid>
+        <DataGrid x:Name="dgMaterials"
                   AutoGenerateColumns="False" 
                   ItemsSource="{Binding FilteredItems}"
+                  HeadersVisibility="Column"
                   RowBackground="#F6F6F6" 
                   AlternatingRowBackground="#FAFAFA"
                   GridLinesVisibility="Horizontal" 
@@ -24,18 +25,17 @@
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="#f0f0f0"/>
                     <Setter Property="Padding" Value="5"/>
-                    <Setter Property="FontWeight" Value="DemiBold"/>
                     <Setter Property="BorderBrush" Value="#333333"/>
-                    <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="DataGridColumnHeader">
                                 <Grid>
                                     <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                                             BorderBrush="{TemplateBinding BorderBrush}"
+                                             BorderThickness="{TemplateBinding BorderThickness}">
                                         <ContentPresenter Margin="{TemplateBinding Padding}" 
-                                              VerticalAlignment="Center"/>
+                                                         VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
                             </ControlTemplate>
@@ -43,23 +43,23 @@
                     </Setter>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
-            <DataGrid.Columns>
+            <DataGrid.Columns >
 
                 <DataGridTextColumn Header="Kategori"
                                     Binding="{Binding Material.MaterialCategory}" 
-                                    Width="150"/>
+                                    Width="200"/>
                 <DataGridTextColumn Header="Beskrivelse" 
                                     Binding="{Binding Material.Description}" 
-                                    Width="*"/>
+                                    Width="300"/>
                 <DataGridTextColumn Header="Antal" 
                                     Binding="{Binding Amount}" 
                                     Width="80"/>
                 <DataGridTextColumn Header="Enhed" 
                                     Binding="{Binding Material.MaterialUnit}" 
-                                    Width="90"/>
+                                    Width="100"/>
                 <DataGridTextColumn Header="Lokation" 
                                     Binding="{Binding Storage.StorageName}" 
-                                    Width="120"/>
+                                    Width="*"/>
 
             </DataGrid.Columns>
         </DataGrid>

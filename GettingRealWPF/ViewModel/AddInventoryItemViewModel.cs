@@ -196,7 +196,7 @@ namespace GettingRealWPF.ViewModel
                 Categories.Add(category);
             }
 
-            // Ikke tilføj materialer her - de tilføjes først når en kategori er valgt
+            
 
             // Tilføj lagerplaceringer
             foreach (var s in _storageRepository.GetAllStorages())
@@ -210,12 +210,22 @@ namespace GettingRealWPF.ViewModel
         {
             Materials.Clear();
 
-            if (SelectedCategory == null) return;
+            if (SelectedCategory == null)
+                return;
 
-            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
+            var inventoryItems = _inventoryItemRepository.GetAllInventoryItems();
 
-            foreach (var m in filteredMaterials)
-                Materials.Add(m);
+            var uniqueMaterials = inventoryItems
+                .Where(item => item.Material.MaterialCategory == SelectedCategory)
+                .Select(item => item.Material)
+                .GroupBy(m => m.Description)
+                .Select(g => g.First())
+                .ToList();
+
+            foreach (var material in uniqueMaterials)
+            {
+                Materials.Add(material);
+            }
         }
 
         // Opdaterer SelectedInventoryItem baseret på valgt materiale og lager
