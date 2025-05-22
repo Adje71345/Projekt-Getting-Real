@@ -180,7 +180,7 @@ namespace GettingRealWPF.ViewModel
             LoadInitialData();
 
             // Initialiser kommandoen til "Tilføj" knappen
-            AddCommand = new RelayCommand(AddMaterial);
+            AddCommand = new RelayCommand(AddMaterial, CanAddMaterial);
         }
 
         // Hent data til dropdowns (kategori, materiale, lager)
@@ -285,12 +285,18 @@ namespace GettingRealWPF.ViewModel
                     SelectedInventoryItem.Storage.StorageName);
 
                 StatusMessage = "Materiale tilføjet og beholdning opdateret.";
+                ClearFields();
             }
             catch (Exception ex)
             {
                 // Vis fejlbesked i UI
                 StatusMessage = $"Fejl: {ex.Message}";
             }
+        }
+
+        private bool CanAddMaterial()
+        {
+            return SelectedMaterial != null && SelectedStorage != null && AmountToAdd > 0;
         }
 
         // Event fra INotifyPropertyChanged, der opdaterer UI ved ændringer
@@ -307,7 +313,6 @@ namespace GettingRealWPF.ViewModel
             AmountToAdd = 0;
             CurrentAmount = 0;
             UpdatedAmount = 0;
-            StatusMessage = null;
 
             
             SelectedMaterial = null;
