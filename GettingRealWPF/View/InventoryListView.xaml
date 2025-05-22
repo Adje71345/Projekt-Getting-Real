@@ -11,11 +11,12 @@
              Background="White">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="565"/>
         </Grid.RowDefinitions>
 
         <uc:SearchBar x:Name="searchBar" Grid.Row="0" />
-        <uc:InventoryList Grid.Row="1"/>
+        <uc:InventoryList Grid.Row="1"
+                          Margin="25,0,75,35"/>
     </Grid>
 </UserControl>

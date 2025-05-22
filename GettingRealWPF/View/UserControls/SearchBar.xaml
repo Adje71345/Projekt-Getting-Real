@@ -14,10 +14,10 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0"
-                BorderBrush="LightGray"
-                BorderThickness="0.5"
+                BorderBrush="Gray"
+                BorderThickness="0.75"
                 Background="White"
-                Margin="0,5,5,5">
+                Margin="25,12,0,12">
             <Grid Background="White">
                 <TextBox x:Name="txtInput"
                          Text=""
@@ -27,63 +27,59 @@
                          FontSize="16"
                          FontWeight="Light"
                          Foreground="Gray"
-                         VerticalContentAlignment="Center"
-                         Margin="10,10,10,10"/>
+                         VerticalContentAlignment="Center"/>
 
                 <TextBlock x:Name="txtPlaceholder"
                            Text="Søg efter materiale" 
+                           Margin="5,0,0,0"
                            FontSize="14" 
                            FontWeight="Light"
                            Foreground="DarkGray"
                            VerticalAlignment="Center"
-                           Margin="10,10,10,10"
                            Panel.ZIndex="-1"/>
 
                 <Button x:Name="btnClear" 
                         Width="50" 
                         HorizontalAlignment="Right" 
                         Content="X" 
-                        Foreground="LightGray" 
+                        Foreground="Gray" 
                         BorderThickness="0"
                         Background="Transparent"
                         Click="btnClear_Click"/>
             </Grid>
         </Border>
 
-        <Border Grid.Column="1"
-                BorderBrush="LightGray"
-                BorderThickness="0.5"
-                Background="White"
-                Margin="0,5,15,5">
-            <Grid>
-                <StackPanel Grid.Column="1" 
-                            Orientation="Horizontal" 
-                            VerticalAlignment="Center">
+       
+            <Grid Grid.Column="1"
+                  Margin="12,12,12,12">
+                <StackPanel Orientation="Horizontal">
 
                     <TextBlock x:Name="txtSearch"
                                Text=""
                                Visibility="Collapsed"/>
 
                     <ComboBox x:Name="cmbCategory" 
-                              Width="225" 
-                              Height="35" 
-                              Margin="0,0,15,0"
+                              Width="215"
                               SelectionChanged="OnCategorySelectionChanged"
                               VerticalContentAlignment="Center"
-                              HorizontalContentAlignment="Center">
+                              HorizontalContentAlignment="Center"
+                              VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
                     </ComboBox>
 
 
 
                     <ComboBox x:Name="cmbLocation" 
-                              Width="225" 
-                              Height="35"
+                              Width="215"
+                              Margin="15,0,0,0"
                               SelectionChanged="OnLocationSelectionChanged"
                               VerticalContentAlignment="Center"
-                              HorizontalContentAlignment="Center">
+                              HorizontalContentAlignment="Center"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch">
                     </ComboBox>
                 </StackPanel>
             </Grid>
-        </Border>
+     
     </Grid>
 </UserControl>

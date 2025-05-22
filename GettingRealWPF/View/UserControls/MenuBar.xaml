@@ -10,12 +10,12 @@
     <Grid>
 
         <!--StackPanel af RadioButtons-->
-        <StackPanel Margin="0,5,25,0">
+        <StackPanel Margin="0,0,5,0">
             <StackPanel.Resources>
                 <!-- Styling af RadioButtons -->
                 <Style x:Key="MenuButtonStyle" TargetType="RadioButton">
                     <Setter Property="Height" Value="60"/>
-                    <Setter Property="Margin" Value="5,5,5,5"/>
+                    <Setter Property="Margin" Value="5,5,30,5"/>
                     <Setter Property="FontSize" Value="15"/>
                     <Setter Property="FontWeight" Value="Normal"/>
                     <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -24,8 +24,8 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="RadioButton">
                                 <Border x:Name="border" 
-                                    BorderBrush="#d3d3d3"
-                                    BorderThickness="0.5"
+                                    BorderBrush="gray"
+                                    BorderThickness="0.75"
                                     Background="White">
 
                                     <Grid>
@@ -43,8 +43,8 @@
                                     </Trigger>
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="border" Property="Background" Value="#f0f0f0 "/>
-                                        <Setter TargetName="border" Property="BorderBrush" Value="#f4f4f4"/>
-
+                                        <Setter TargetName="border" Property="BorderBrush" Value="Gray"/>
+                                        <Setter TargetName="border" Property="BorderThickness" Value="1"/>
                                         <Setter Property="FontWeight" Value="DemiBold"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
@@ -54,7 +54,7 @@
                 </Style>
             </StackPanel.Resources>
 
-            <!-- RadioButtons med den tilpassede stil -->
+           
             <RadioButton x:Name="rbLagerListe"
                     Content="Lagerliste" 
                     GroupName="MenuGroup"
