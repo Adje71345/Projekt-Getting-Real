@@ -7,7 +7,7 @@ using GettingRealWPF.Model;    // Model-klasser som Material, Storage, Inventory
 
 namespace GettingRealWPF.ViewModel
 {
-    public class AddMaterialViewModel : INotifyPropertyChanged
+    public class AddInventoryItemViewModel : INotifyPropertyChanged
     {
         // Repositories til dataadgang for materialer, lagerbeholdning og lagre
         private readonly IMaterialRepository _materialRepository;
@@ -168,7 +168,7 @@ namespace GettingRealWPF.ViewModel
         }
 
         // Konstruktor med dependency injection af repositories
-        public AddMaterialViewModel(IMaterialRepository materialRepository,
+        public AddInventoryItemViewModel(IMaterialRepository materialRepository,
                                     IInventoryItemRepository inventoryItemRepository,
                                     IStorageRepository storageRepository)
         {
@@ -210,27 +210,12 @@ namespace GettingRealWPF.ViewModel
         {
             Materials.Clear();
 
-            if (SelectedCategory == null)
-            {
-                return;
-            }
+            if (SelectedCategory == null) return;
 
-            // Hent materialer fra InventoryItems i stedet for MaterialRepository
-            var inventoryItems = _inventoryItemRepository.GetAllInventoryItems().ToList();
+            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
 
-            // Find unikke materialer i den valgte kategori
-            var uniqueMaterials = inventoryItems
-                .Where(item => item.Material.MaterialCategory == SelectedCategory)
-                .Select(item => item.Material)
-                .GroupBy(m => m.Description)  // Gruppér for at undgå duplikater
-                .Select(g => g.First())       // Tag kun ét materiale fra hver gruppe
-                .ToList();
-
-            // Tilføj de unikke materialer til dropdown listen
-            foreach (var material in uniqueMaterials)
-            {
-                Materials.Add(material);
-            }
+            foreach (var m in filteredMaterials)
+                Materials.Add(m);
         }
 
         // Opdaterer SelectedInventoryItem baseret på valgt materiale og lager

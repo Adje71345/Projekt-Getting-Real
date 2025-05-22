@@ -12,7 +12,7 @@ using Material = GettingRealWPF.Model.Material;
 
 namespace GettingRealWPF.ViewModel
 {
-    public class ConsumeMaterialViewModel : INotifyPropertyChanged
+    public class ConsumeInventoryItemViewModel : INotifyPropertyChanged
     {
         //Repositories for material, inventoryitem og storage
         private readonly IMaterialRepository _materialRepository;
@@ -20,11 +20,11 @@ namespace GettingRealWPF.ViewModel
         private readonly IStorageRepository _storageRepository;
 
         //Constructors
-        public ConsumeMaterialViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
+        public ConsumeInventoryItemViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
         {
         }
 
-        public ConsumeMaterialViewModel(IMaterialRepository materialRepository, IInventoryItemRepository inventoryItemRepository, IStorageRepository storageRepository)
+        public ConsumeInventoryItemViewModel(IMaterialRepository materialRepository, IInventoryItemRepository inventoryItemRepository, IStorageRepository storageRepository)
         {
             _materialRepository = materialRepository;
             _inventoryItemRepository = inventoryItemRepository;
@@ -228,15 +228,14 @@ namespace GettingRealWPF.ViewModel
         {
             Materials.Clear();
 
-            var filtered = InventoryItems
-                .Where(item => item.Material.MaterialCategory == SelectedCategory)
-                .Select(item => item.Material)
-                .GroupBy(m => m.Description)
-                .Select(g => g.First());
+            if (SelectedCategory == null) return; // Sikrer, at kategorien er valgt
 
-            foreach (var m in filtered)
+            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
+
+            foreach (var m in filteredMaterials)
                 Materials.Add(m);
         }
+
 
         private void UpdateSelectedInventoryItem()
         {

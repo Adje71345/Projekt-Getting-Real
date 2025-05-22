@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace GettingRealWPF.ViewModel
 {
-    public class MoveMaterialViewModel : INotifyPropertyChanged
+    public class MoveInventoryItemViewModel : INotifyPropertyChanged
     {
         //Repositories for material, inventoryitem og storage
         private readonly IMaterialRepository _materialRepository;
@@ -18,11 +18,11 @@ namespace GettingRealWPF.ViewModel
         private readonly IStorageRepository _storageRepository;
 
         //Constructors
-        public MoveMaterialViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
+        public MoveInventoryItemViewModel() : this(new FileMaterialRepository("materials.txt"), new FileInventoryItemRepository("inventoryitems.txt"), new FileStorageRepository("storages.txt"))
         {
         }
 
-        public MoveMaterialViewModel(IMaterialRepository materialRepository, IInventoryItemRepository inventoryItemRepository, IStorageRepository storageRepository)
+        public MoveInventoryItemViewModel(IMaterialRepository materialRepository, IInventoryItemRepository inventoryItemRepository, IStorageRepository storageRepository)
         {
             _materialRepository = materialRepository;
             _inventoryItemRepository = inventoryItemRepository;
@@ -242,13 +242,11 @@ namespace GettingRealWPF.ViewModel
         {
             Materials.Clear();
 
-            var filtered = InventoryItems
-                .Where(item => item.Material.MaterialCategory == SelectedCategory)
-                .Select(item => item.Material)
-                .GroupBy(m => m.Description)
-                .Select(g => g.First());
+            if (SelectedCategory == null) return;
 
-            foreach (var m in filtered)
+            var filteredMaterials = _materialRepository.GetMaterialsByCategory((Material.Category)SelectedCategory);
+
+            foreach (var m in filteredMaterials)
                 Materials.Add(m);
         }
 

@@ -47,13 +47,13 @@ namespace GettingRealWPF.View
                 _viewModel.CurrentView = new RegisterMaterialView();
 
             menuControl.rbAddMaterial.Checked += (s, e) =>
-            _viewModel.CurrentView = new AddMaterialView();
+            _viewModel.CurrentView = new AddInventoryItemView();
 
             menuControl.rbConsumeMaterial.Checked += (s, e) =>
-                _viewModel.CurrentView = new ConsumeMaterialView();
+                _viewModel.CurrentView = new ConsumeInventoryItemView();
 
             menuControl.rbMoveMaterial.Checked += (s, e) =>
-                _viewModel.CurrentView = new MoveMaterialView();
+                _viewModel.CurrentView = new MoveInventoryItemView();
         }
     }
 }
