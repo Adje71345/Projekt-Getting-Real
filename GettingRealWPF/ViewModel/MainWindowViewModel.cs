@@ -40,15 +40,20 @@ namespace GettingRealWPF.ViewModels
             LoginCommand = new RelayCommand(Login);
         }
 
-        private void Login()
+        public void Login()
         {
             var users = userRepo.GetAllUsers();
             var user = users.FirstOrDefault(u => u.Name == Username && u.Password == Password);
 
-            LoginMessage = user != null ? "Login succesfuldt" : "Forkert brugernavn eller adgangskode";
-
-            // Udløs event for vellykket login
-            LoginSuccessful?.Invoke(this, EventArgs.Empty);
+            if (user != null)
+            {
+                LoginMessage = "Login succesfuldt";
+                LoginSuccessful?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                LoginMessage = "Forkert brugernavn eller adgangskode";
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

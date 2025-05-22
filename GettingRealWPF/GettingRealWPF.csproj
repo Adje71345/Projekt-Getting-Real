@@ -9,6 +9,12 @@
 	<ItemGroup>
 		<None Remove="Images\Pro-stål logo.png" />
 		<None Remove="Images\ProStaal.png" />
+		<None Remove="users.txt" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="users.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 	<ItemGroup>
 		<Resource Include="Images\Pro-stål logo.png">
