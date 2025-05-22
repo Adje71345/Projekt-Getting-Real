@@ -191,11 +191,15 @@ namespace GettingRealWPF.ViewModel
 
                 if (inventoryItem == null)
                 {
-                    throw new Exception($"InventoryItem med materiale '{SelectedMaterial.Description}' på '{SelectedFromLocation.StorageName}' blev ikke fundet.");
+                    VerificationMessage = $"Fejl: InventoryItem med materiale '{SelectedMaterial.Description}' på '{SelectedFromLocation.StorageName}' blev ikke fundet.";
+                    return; // Stopper funktionen uden at crashe
                 }
 
                 if (MoveAmount > inventoryItem.Amount)
-                    throw new Exception("Flyttemængden overstiger den tilgængelige mængde.");
+                {
+                    VerificationMessage = "Fejl: Flyttemængden overstiger den tilgængelige mængde.";
+                    return; // Stopper funktionen uden at forsøge at flytte
+                }
 
                 // Flyt materialet fra "fra"-location til "til"-location
                 _inventoryItemRepository.MoveInventoryItem(
@@ -204,13 +208,13 @@ namespace GettingRealWPF.ViewModel
                   SelectedToLocation.StorageName,
                   MoveAmount);
 
-                VerificationMessage = $"{MoveAmount} {SelectedUnitDisplay} {SelectedMaterial.Description}' er flyttet fra '{SelectedFromLocation.StorageName}' til '{SelectedToLocation.StorageName}'.";
+                VerificationMessage = $"{MoveAmount} {SelectedUnitDisplay} {SelectedMaterial.Description} er flyttet fra '{SelectedFromLocation.StorageName}' til '{SelectedToLocation.StorageName}'.";
                 RefreshInventoryItems();
                 ClearFields();
             }
             catch (Exception ex)
             {
-                throw new Exception("Fejl ved flytning af materiale.", ex);
+                VerificationMessage = $"Fejl ved flytning af materiale: {ex.Message}";
             }
         }
 

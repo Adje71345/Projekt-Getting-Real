@@ -22,6 +22,8 @@
                     <RowDefinition Height="50"/>
                     <!-- Fith row -->
                     <RowDefinition Height="50"/>
+                    <!-- Sixth row -->
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -40,12 +42,16 @@
                 <TextBlock Margin="25 0 0 5" Text="Fra placering" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
                 <ComboBox Margin="0 0 75 5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" BorderBrush="#FF020202" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedFromLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
                 <!-- Fourth Row -->
-                <TextBlock Margin="25 0 0 5" Text="Til placering" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
-                <ComboBox Margin="0 0 75 5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedToLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
+                <TextBlock Margin="25 0 0 5" Text="Nuværende beholdning" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+                <TextBox Margin="0 0 75 5" IsReadOnly="True" Grid.Row="3" Grid.Column="1" Height="21" Grid.ColumnSpan="2" VerticalAlignment="Top" BorderBrush="Black" Width="100" HorizontalAlignment="Left" Text="{Binding CurrentAmount, Mode=OneWay}"/>
+                <TextBox Margin="0,0,500,5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
                 <!-- Fith Row -->
-                <TextBlock Margin="25 0 0 5" Text="Antal at flytte" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
-                <TextBox Margin="0,0,0,5" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top" Text="{Binding MoveAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Margin="0,0,500,5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
+                <TextBlock Margin="25 0 0 5" Text="Til placering" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
+                <ComboBox Margin="0 0 75 5" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" ItemsSource="{Binding Storages}" SelectedItem="{Binding SelectedToLocation, Mode=TwoWay}" DisplayMemberPath="StorageName"/>
+                <!-- Sixth Row -->
+                <TextBlock Margin="25 0 0 5" Text="Antal at flytte" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
+                <TextBox Margin="0,0,0,5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Width="100" Background="White" OpacityMask="Black" BorderBrush="Black" Height="21" VerticalAlignment="Top" Text="{Binding MoveAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0,0,500,5" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" BorderBrush="Black" Text="{Binding SelectedUnitDisplay, Mode=OneWay}" IsReadOnly="True"/>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,76,0" Width="400" Height="50" VerticalAlignment="Bottom">
                 <Button Content="Anuller" Background="White" Margin="128 0 0 0" VerticalAlignment="Center" Width="130" Height="40" BorderBrush="Black" Click="CancelButton_Click"/>
