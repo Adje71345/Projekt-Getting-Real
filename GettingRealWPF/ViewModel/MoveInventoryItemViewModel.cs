@@ -107,6 +107,7 @@ namespace GettingRealWPF.ViewModel
                 {
                     _selectedToLocation = value;
                     OnPropertyChanged(nameof(SelectedToLocation));
+                    UpdateSelectedInventoryItem();
                 }
             }
         }
@@ -179,7 +180,8 @@ namespace GettingRealWPF.ViewModel
                    MoveAmount > 0 &&
                    SelectedMaterial != null &&
                    SelectedFromLocation != null &&
-                   SelectedToLocation != null;
+                   SelectedToLocation != null &&
+                   SelectedFromLocation != SelectedToLocation;
         }
 
         private void MoveMaterial()
