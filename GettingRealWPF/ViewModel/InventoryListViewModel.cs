@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using GettingRealWPF.Model;
+using System.IO;
 
 namespace GettingRealWPF.ViewModel
 {
@@ -20,6 +21,10 @@ namespace GettingRealWPF.ViewModel
 
         public InventoryListViewModel()
         {
+            // Slet filen hvis den eksisterer
+            if (File.Exists("inventoryitems.txt"))
+                File.Delete("inventoryitems.txt");
+
             _inventoryItemRepository = new FileInventoryItemRepository("inventoryitems.txt");
             LoadData();
         }
