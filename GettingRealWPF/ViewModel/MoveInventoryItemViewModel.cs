@@ -43,6 +43,8 @@ namespace GettingRealWPF.ViewModel
             = new ObservableCollection<Storage>();
         public ObservableCollection<InventoryItem> InventoryItems { get; }
             = new ObservableCollection<InventoryItem>();
+        public ObservableCollection<Storage> AvailableToLocations { get; private set; } 
+            = new ObservableCollection<Storage>();
 
         //Valgte elementer i comboboxes
         private Material.Category? _selectedCategory;
@@ -89,7 +91,7 @@ namespace GettingRealWPF.ViewModel
                     _selectedFromLocation = value;
                     OnPropertyChanged(nameof(SelectedFromLocation));
                     OnPropertyChanged(nameof(CurrentAmount));
-                    UpdateSelectedInventoryItem();
+                    UpdateAvailableToLocations();
                 }
             }
         }
@@ -264,6 +266,16 @@ namespace GettingRealWPF.ViewModel
             }
         }
 
+        private void UpdateAvailableToLocations()
+        {
+            AvailableToLocations.Clear();
+
+            foreach (var storage in Storages)
+            {
+                if (storage != SelectedFromLocation)
+                    AvailableToLocations.Add(storage);
+            }
+        }
         public void ClearFields()
         {
             SelectedCategory = null;
