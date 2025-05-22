@@ -21,10 +21,7 @@ namespace GettingRealWPF.ViewModel
 
         public InventoryListViewModel()
         {
-            // Slet filen hvis den eksisterer
-            if (File.Exists("inventoryitems.txt"))
-                File.Delete("inventoryitems.txt");
-
+          
             _inventoryItemRepository = new FileInventoryItemRepository("inventoryitems.txt");
             LoadData();
         }
