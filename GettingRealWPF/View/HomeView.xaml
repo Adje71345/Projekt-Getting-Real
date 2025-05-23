@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!--Logo område-->
-        <Image  Grid.Row="0"  Source="/Images/Pro-stål logo.png"
+        <Image  Grid.Row="0"  Source="/Images/ProStaal.png"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Height="100" Width="290"/>
 
